@@ -50,7 +50,6 @@ const MatchsDay = () => {
 						marginBottom: "2rem",
 					}}
 				>
-					<div className="background-title"></div>
 					<h2 className="title-page">Partidos del día</h2>
 				</div>
 				{matchs &&
