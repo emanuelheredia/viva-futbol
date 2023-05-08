@@ -5,9 +5,11 @@ import {
 } from "../types/index";
 
 const initialState = {
-	msg: "",
+	msg: {},
 	loading: false,
+	error: false,
 	login: false,
+	data: [],
 };
 
 export default function authReducer(state = initialState, action) {
@@ -15,6 +17,8 @@ export default function authReducer(state = initialState, action) {
 		case SIGN_UP_USER:
 			return {
 				...state,
+				error: false,
+				msg: {},
 				loading: true,
 			};
 		case SIGN_UP_USER_EXITO:
@@ -22,12 +26,17 @@ export default function authReducer(state = initialState, action) {
 				...state,
 				loading: false,
 				login: true,
+				data: action.payload,
+				error: false,
+				msg: "",
 			};
 		case SIGN_UP_USER_ERROR:
 			return {
 				...state,
 				loading: false,
 				login: false,
+				error: true,
+				msg: action.payload,
 			};
 		default:
 			return state;

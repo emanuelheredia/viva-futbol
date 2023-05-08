@@ -1,0 +1,14 @@
+.error-message{
+    background-color: red;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    font-weight: bolder;
+}
+.register-success{
+    background-color: rgb(2, 150, 26);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    font-weight: bolder;
+}

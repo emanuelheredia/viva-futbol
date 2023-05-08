@@ -1,19 +1,26 @@
 import { SIGN_UP_USER, SIGN_UP_USER_ERROR, SIGN_UP_USER_EXITO } from "../types";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 
-export const signUp = ({ user, email }) => {
+export const signUp = (newUser) => {
+	const { email, password } = newUser;
 	return async (dispatch) => {
 		dispatch(signUpUser());
 		try {
-			helpHttp()
-				.get("https://api-football-v1.p.rapidapi.com/v3/countries", {
-					headers: {
-						"x-rapidapi-host": config.HOST2,
-						"x-rapidapi-key": config.KEY2,
-					},
-				})
-				.then((res) => dispatch(signUpUserExito(res.response)));
+			const res = await createUserWithEmailAndPassword(
+				auth,
+				email,
+				password,
+			);
+			dispatch(
+				signUpUserExito({
+					token: res.user.accessToken,
+					userID: res.user.uid,
+				}),
+			);
+			console.log(res);
 		} catch (error) {
-			dispatch(signUpUserError(error));
+			dispatch(signUpUserError(error.message));
 		}
 	};
 };
