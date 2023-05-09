@@ -1,4 +1,7 @@
 .header-container{
+    position: fixed;
+    width: 100%;
+    top: 0;
     padding: 0;
     margin: 0;
     background: linear-gradient(90deg, rgba(37,27,204,1) 0%, rgba(105,105,207,1) 32%, rgba(0,179,184,1) 100%);

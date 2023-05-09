@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./cardEnfrentamientos.css";
 
 const CardEnfrentamientos = ({ match }) => {
-	console.log(match);
 	const [score, setScore] = useState(null);
 	const [matchFinish, setMatchFinish] = useState(false);
 	const [matchInCourse, setMatchInCourse] = useState(false);

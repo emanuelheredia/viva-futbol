@@ -1,0 +1,77 @@
+.form{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.form-container{
+    display: flex;
+    padding: 2rem;
+    flex-direction: column;
+    justify-content: center;
+    width: 250px;
+    height: 400px;
+    gap: 1rem;
+    align-items: center;
+}
+.form_response-message{
+    margin-top: .5rem;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+    font-weight: bolder;
+    border-radius: 5px;
+}
+.backgroundError{
+    background-color: red;
+}
+.backgroundSucces{
+    background-color: rgb(8, 212, 52);
+}
+.form-campos{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: .5rem;
+    color: rgb(22, 22, 163);
+    font-weight: 900;
+}
+.form-campos>input{
+    padding: .7rem;
+    border-radius: 5px;
+    border: solid thin;
+}
+.form-boton{
+    background-color: rgba(59,89,152,1);
+    padding: .5rem;
+    height: 3rem;
+    width: 100%;
+    color: white;
+    font-weight: bolder;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.form-boton:hover{
+    background-color: rgb(46, 46, 252);
+}
+.form_background{
+    position: absolute;
+    border-radius: 10px;
+    height: 400px;
+    width: inherit;
+    height: inherit;
+    z-index: -1;
+    opacity: .2;
+    background-color: blue;
+}
+@media (min-width:780px){
+.form-container{
+    width: 350px;
+    gap: 1rem;
+}
+}

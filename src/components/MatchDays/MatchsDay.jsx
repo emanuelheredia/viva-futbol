@@ -27,7 +27,7 @@ const MatchsDay = () => {
 	}, []);
 
 	useEffect(() => {
-		if (data.fixture.length > 0) {
+		if (data.fixture?.length > 0) {
 			const filterMatchs = data.fixture.filter((el) =>
 				leagues.map((el) => el.id).includes(el.league.id),
 			);
