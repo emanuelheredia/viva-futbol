@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "../../actions/auth.actions";
 import { useNavigate } from "react-router-dom";
 import Form from "./Form";
+import { addUserDB } from "../../actions/user.actions";
 
 const Registrer = () => {
 	const dispatch = useDispatch();
@@ -28,6 +29,12 @@ const Registrer = () => {
 			setTimeout(() => {
 				navigate("/");
 			}, [2000]);
+		}
+	}, [auth]);
+
+	useEffect(() => {
+		if (auth.data.userID) {
+			dispatch(addUserDB(auth.data.userID, auth.data.email));
 		}
 	}, [auth]);
 

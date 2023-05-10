@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCountries, getMatchsDays } from "../../actions";
+import { getCountries, getMatchsDays } from "../../actions/infoAPI.actions";
 import "./matchDays.css";
 import CardEnfrentamientos from "./CardEnfrentamientos/CardEnfrentamientos";
 

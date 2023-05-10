@@ -30,6 +30,7 @@ export const signUp = (newUser) => {
 				signUpUserExito({
 					token: res.user.accessToken,
 					userID: res.user.uid,
+					email: email,
 				}),
 			);
 		} catch (error) {
