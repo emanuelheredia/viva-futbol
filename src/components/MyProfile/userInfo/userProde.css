@@ -1,0 +1,5 @@
+.container__allMatches{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

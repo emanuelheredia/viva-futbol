@@ -116,7 +116,7 @@ const UserProde = () => {
 	}, []);
 	console.log(fixtureProde);
 	return (
-		<div>
+		<div className="container__allMatches">
 			{fixtureProde?.map((el, index) => (
 				<CardEnfrentamientosProde
 					key={index}
