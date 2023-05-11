@@ -21,8 +21,8 @@ export const getCountries = () => {
 			helpHttp()
 				.get("https://api-football-v1.p.rapidapi.com/v3/countries", {
 					headers: {
-						"x-rapidapi-host": config.HOST2,
-						"x-rapidapi-key": config.KEY2,
+						"x-rapidapi-host": config.HOST1,
+						"x-rapidapi-key": config.KEY1,
 					},
 				})
 				.then((res) => dispatch(getAllCountriesExito(res.response)));
@@ -49,14 +49,14 @@ export const getMatchsDays = () => {
 			helpHttp()
 				.get(
 					"https://" +
-						config.HOST2 +
+						config.HOST1 +
 						"fixtures?&date=" +
 						hoy +
 						"&timezone=America/Argentina/Cordoba",
 					{
 						headers: {
-							"x-rapidapi-host": config.HOST2,
-							"x-rapidapi-key": config.KEY2,
+							"x-rapidapi-host": config.HOST1,
+							"x-rapidapi-key": config.KEY1,
 						},
 					},
 				)
@@ -84,7 +84,7 @@ export const getFixtureProde = (season, league, ronda = "1st Phase - 16") => {
 			helpHttp()
 				.get(
 					"https://" +
-						config.HOST2 +
+						config.HOST1 +
 						"fixtures?&season=" +
 						season +
 						"&league=" +
@@ -94,8 +94,8 @@ export const getFixtureProde = (season, league, ronda = "1st Phase - 16") => {
 						"&timezone=America/Argentina/Cordoba",
 					{
 						headers: {
-							"x-rapidapi-host": config.HOST2,
-							"x-rapidapi-key": config.KEY2,
+							"x-rapidapi-host": config.HOST1,
+							"x-rapidapi-key": config.KEY1,
 						},
 					},
 				)

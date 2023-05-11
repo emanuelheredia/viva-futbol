@@ -13,13 +13,23 @@
 .container__matchInfo:first-child>div{
     width: 100%;
 }
+.pronostico__container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+}
 .container__card{
+    background-color: rgb(189, 198, 201);
     font-size: .7rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: .7rem;
     gap: .5rem;
+    border: solid 1px;
+    padding: .5rem;
+    border-radius: 10px;
 }
 .container__matchInfo__teams{
     display: flex;
@@ -32,11 +42,11 @@
     border-radius: 5px;
 }
 .logo__team{
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
 }
 .pronostico__select, .pronostico__select>option{
-    padding: .5rem;
+    padding: .3rem;
     text-align: center;
     border-radius: 5px;
     width: 150px;
@@ -45,12 +55,40 @@
     font-size: inherit;
     overflow:hidden;
 }
+.container__inputResultados{
+    display: flex;  
+    justify-content: center;
+    gap: .5rem;
+}
+.inputResultados{
+    background-color: rgba(250, 235, 215, 0.705);
+    width: 30px;
+    text-align: center;
+    padding: 2px;
+    border: solid 1px;
+    border-radius: 3px;
+}
+.btn__pronostico{
+    width: 60px;
+    background-color: rgba(59,89,152,1);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: inherit;
+
+}
+.pronostico__container{}
 @media (min-width:780px){
     .container__card{
     flex-direction: row;
     margin-bottom: 1rem;
     gap: 2rem;
     font-size: 1rem;
+}
+.logo__team{
+    width: 30px;
+    height: 30px;
 }
 .pronostico__select, .pronostico__select>option{
     width: 200px;
