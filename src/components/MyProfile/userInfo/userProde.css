@@ -3,3 +3,14 @@
     flex-direction: column;
     align-items: center;
 }
+.btn__save-prode-db{
+    width: auto;
+    cursor: pointer;
+    background-color: rgb(32, 163, 91);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: inherit;
+    margin-bottom: 2rem;
+}

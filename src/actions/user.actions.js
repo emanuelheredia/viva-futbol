@@ -46,9 +46,9 @@ export const getUserDB = (userID) => {
 	return async (dispatch) => {
 		dispatch(getUser());
 		try {
-			await getDoc(doc(coleccion, userID.userID)).then((res) =>
-				dispatch(getUserExito(res.data())),
-			);
+			await getDoc(doc(coleccion, userID.userID)).then((res) => {
+				dispatch(getUserExito(res.data()));
+			});
 		} catch (error) {
 			dispatch(getUserError("Error en la obtención"));
 		}
@@ -58,8 +58,9 @@ export const getUserDB = (userID) => {
 const getUser = () => ({
 	type: GET_USER_DB,
 });
-const getUserExito = () => ({
+const getUserExito = (payload) => ({
 	type: GET_USER_DB_EXITO,
+	payload: payload,
 });
 const getUserError = (error) => ({
 	type: GET_ALL_COUNTRIES_ERROR,
@@ -68,11 +69,13 @@ const getUserError = (error) => ({
 
 export const updateUserDB = (idUser, data) => {
 	return async (dispatch) => {
+		console.log("envio de datos");
 		dispatch(updateUser());
 		try {
 			await updateDoc(doc(db, "users", idUser), data);
 			dispatch(updateUserExito());
 		} catch (error) {
+			console.log("error en la actualizacion");
 			dispatch(updateUserError("Error en la actualización"));
 		}
 	};

@@ -14,7 +14,7 @@ const initialState = {
 	loading: false,
 	error: false,
 	user: {},
-	data: [],
+	data: {},
 };
 
 export default function usersReducer(state = initialState, action) {
@@ -37,7 +37,7 @@ export default function usersReducer(state = initialState, action) {
 				...state,
 				error: false,
 				loading: false,
-				user: action.payload,
+				data: action.payload,
 			};
 		case UPDATE_USER_DB_EXITO:
 			return {

@@ -18,7 +18,11 @@ const getTime = (fecha) => {
 	return date + "    " + time;
 };
 const CardEnfrentamientosProde = ({ match, setProde, prode }) => {
-	const [pronostico, setPronostico] = useState(inicialStatePronostico);
+	const [pronostico, setPronostico] = useState(
+		match.fixture.prode
+			? match.fixture.prode.pronostico
+			: inicialStatePronostico,
+	);
 	const [resultado, setResultado] = useState(inicialStateresultado);
 	const [selectModificado, setselectModificado] = useState(false);
 	const [disabledSave, setDisabledSave] = useState(true);
@@ -60,6 +64,12 @@ const CardEnfrentamientosProde = ({ match, setProde, prode }) => {
 		setEditionEnable(false);
 	};
 	useEffect(() => {
+		if (match.fixture.prode) {
+			setResultado(match.fixture.prode.pronostico.resultado);
+			setselectModificado(true);
+		}
+	}, [match.fixture]);
+	useEffect(() => {
 		setPronostico({ ...pronostico, resultado });
 	}, [resultado]);
 	useEffect(() => {
@@ -75,14 +85,18 @@ const CardEnfrentamientosProde = ({ match, setProde, prode }) => {
 			resultado.local === resultado.visitante
 		) {
 			setDisabledSave(true);
-		} else if () {
+		} else if (
+			(Number(pronostico.idGanador) === match.teams.home.id &&
+				resultado.local < resultado.visitante) ||
+			(Number(pronostico.idGanador) === match.teams.away.id &&
+				resultado.visitante < resultado.local)
+		) {
 			setDisabledSave(true);
-		}
-		else {
+		} else {
 			setDisabledSave(false);
 		}
-	}, [pronostico.resultado, pronostico.idGanador, pronostico.empate]);
-
+	}, [pronostico]);
+	console.log(pronostico);
 	return (
 		<div className="container__card">
 			<div className="container__matchInfo">
@@ -122,6 +136,11 @@ const CardEnfrentamientosProde = ({ match, setProde, prode }) => {
 					className="pronostico__select"
 					onChange={(e) => handleSelect(e)}
 					disabled={editionEnable ? false : true}
+					defaultValue={
+						(match.fixture.prode?.pronostico.idGanador &&
+							match.fixture.prode.pronostico.idGanador) ||
+						(match.fixture.prode?.pronostico.empate && "empate")
+					}
 				>
 					<option value="sin seleccion">--Equipo Ganador--</option>
 					<option value={match.teams.home.id}>
@@ -145,9 +164,12 @@ const CardEnfrentamientosProde = ({ match, setProde, prode }) => {
 							required
 							type="number"
 							className="inputResultados"
-							placeholder="L"
 							id="local"
+							placeholder="L"
 							onChange={handleResultado}
+							defaultValue={
+								match.fixture.prode?.pronostico.resultado.local
+							}
 							disabled={editionEnable ? false : true}
 						/>
 						<input
@@ -156,6 +178,10 @@ const CardEnfrentamientosProde = ({ match, setProde, prode }) => {
 							className="inputResultados"
 							placeholder="V"
 							id="visitante"
+							defaultValue={
+								match.fixture.prode?.pronostico.resultado
+									.visitante
+							}
 							onChange={handleResultado}
 							disabled={editionEnable ? false : true}
 						/>

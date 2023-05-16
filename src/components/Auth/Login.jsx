@@ -11,7 +11,6 @@ const Login = () => {
 	const auth = useSelector((state) => state.auth);
 
 	const handleSubmit = (user) => {
-		console.log(user);
 		setResponse(null);
 		dispatch(signIn(user));
 	};

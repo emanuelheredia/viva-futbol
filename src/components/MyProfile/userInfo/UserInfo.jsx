@@ -9,6 +9,7 @@ const UserInfo = (userID) => {
 	useEffect(() => {
 		dispatch(getUserDB(userID));
 	}, []);
+
 	return <div>UserInfo</div>;
 };
 

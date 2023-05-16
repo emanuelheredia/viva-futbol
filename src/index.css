@@ -10,7 +10,8 @@ body{
     background-image: url("./assets/body3.avif");
     background-repeat:no-repeat;
     background-size: cover;
-    height: 100vh;
+    height: auto;
+    min-height: 100vh;
     font-family: 'Lato', sans-serif;
     font-family: 'Roboto', sans-serif;
     font-family: 'Titillium Web', sans-serif;
