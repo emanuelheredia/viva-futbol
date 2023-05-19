@@ -46,7 +46,7 @@ export const getUserDB = (userID) => {
 	return async (dispatch) => {
 		dispatch(getUser());
 		try {
-			await getDoc(doc(coleccion, userID.userID)).then((res) => {
+			await getDoc(doc(coleccion, userID)).then((res) => {
 				dispatch(getUserExito(res.data()));
 			});
 		} catch (error) {
@@ -68,11 +68,15 @@ const getUserError = (error) => ({
 });
 
 export const updateUserDB = (idUser, data) => {
+	const { prode } = data;
 	return async (dispatch) => {
 		console.log("envio de datos");
 		dispatch(updateUser());
 		try {
-			await updateDoc(doc(db, "users", idUser), data);
+			await updateDoc(doc(db, "users", idUser), {
+				prode: prode,
+			});
+			console.log("actualice");
 			dispatch(updateUserExito());
 		} catch (error) {
 			console.log("error en la actualizacion");

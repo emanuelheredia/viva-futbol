@@ -99,16 +99,12 @@ export const getFixtureProde = (season, league, ronda = "1st Phase - 16") => {
 						},
 					},
 				)
-				.then((res) =>
-					dispatch(
-						getFixtureExito(
-							res.response.sort(
-								(x, y) =>
-									x.fixture.timestamp - y.fixture.timestamp,
-							),
-						),
-					),
-				);
+				.then((res) => {
+					const respuesta = res.response.sort(
+						(x, y) => x.fixture.timestamp - y.fixture.timestamp,
+					);
+					dispatch(getFixtureExito(respuesta));
+				});
 		} catch (error) {
 			dispatch(getFixtureError("Error en la aextracción fixture prode"));
 		}

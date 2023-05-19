@@ -3,7 +3,7 @@ import "./userInfo.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserDB } from "../../../actions/user.actions";
 
-const UserInfo = (userID) => {
+const UserInfo = ({ userID }) => {
 	const dispatch = useDispatch();
 	const { users } = useSelector((state) => state);
 	useEffect(() => {

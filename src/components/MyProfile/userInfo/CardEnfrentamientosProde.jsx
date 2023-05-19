@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./cardEnfrentamientoProde.css";
+import { useSelector } from "react-redux";
 
 const inicialStatePronostico = {
 	empate: false,
 	idGanador: null,
-	resultado: {},
-};
-const inicialStateresultado = {
-	local: null,
-	visitante: null,
+	scoreHome: null,
+	scoreAway: null,
 };
 const getTime = (fecha) => {
 	let fechaUnorder = fecha.split("T")[0].split("-");
@@ -18,13 +16,10 @@ const getTime = (fecha) => {
 	return date + "    " + time;
 };
 const CardEnfrentamientosProde = ({ match, setProde, prode }) => {
-	const [pronostico, setPronostico] = useState(
-		match.fixture.prode
-			? match.fixture.prode.pronostico
-			: inicialStatePronostico,
-	);
-	const [resultado, setResultado] = useState(inicialStateresultado);
+	const { data: userData } = useSelector((state) => state.users);
+	const [pronostico, setPronostico] = useState(inicialStatePronostico);
 	const [selectModificado, setselectModificado] = useState(false);
+	const [defaultValuesDB, setDefaultValuesDB] = useState(false);
 	const [disabledSave, setDisabledSave] = useState(true);
 	const [editionEnable, setEditionEnable] = useState(false);
 	const handleSelect = (e) => {
@@ -46,12 +41,14 @@ const CardEnfrentamientosProde = ({ match, setProde, prode }) => {
 			empate: false,
 			idGanador: e.target.value,
 		});
+		setDefaultValuesDB(false);
 	};
 	const handleResultado = (e) => {
-		setResultado({
-			...resultado,
+		setPronostico({
+			...pronostico,
 			[e.target.id]: e.target.value,
 		});
+		setDefaultValuesDB(false);
 	};
 	const handleSave = () => {
 		const prodeFiltrado = prode.filter((el) => el.id != match.fixture.id);
@@ -64,39 +61,54 @@ const CardEnfrentamientosProde = ({ match, setProde, prode }) => {
 		setEditionEnable(false);
 	};
 	useEffect(() => {
-		if (match.fixture.prode) {
-			setResultado(match.fixture.prode.pronostico.resultado);
-			setselectModificado(true);
+		if (userData.prode) {
+			const pronosticoDB = userData.prode.filter(
+				(el) => el.id === match.fixture.id,
+			);
+			if (pronosticoDB.length > 0) {
+				const oldPronostico = pronosticoDB[0].pronostico;
+				setPronostico({
+					empate: oldPronostico.empate,
+					idGanador: oldPronostico.idGanador,
+					scoreHome: oldPronostico.scoreHome,
+					scoreAway: oldPronostico.scoreAway,
+				});
+				setselectModificado(true);
+				setDefaultValuesDB(true);
+			}
 		}
-	}, [match.fixture]);
+	}, [userData.prode]);
+
 	useEffect(() => {
-		setPronostico({ ...pronostico, resultado });
-	}, [resultado]);
-	useEffect(() => {
-		if (!resultado.local || !resultado.visitante || !selectModificado) {
+		if (
+			!pronostico.scoreHome ||
+			!pronostico.scoreAway ||
+			!selectModificado
+		) {
 			setDisabledSave(true);
 		} else if (
 			pronostico.empate &&
-			resultado.local !== resultado.visitante
+			pronostico.scoreHome !== pronostico.scoreAway
 		) {
 			setDisabledSave(true);
 		} else if (
 			!pronostico.empate &&
-			resultado.local === resultado.visitante
+			pronostico.scoreHome === pronostico.scoreAway
 		) {
 			setDisabledSave(true);
 		} else if (
 			(Number(pronostico.idGanador) === match.teams.home.id &&
-				resultado.local < resultado.visitante) ||
+				pronostico.scoreHome < pronostico.scoreAway) ||
 			(Number(pronostico.idGanador) === match.teams.away.id &&
-				resultado.visitante < resultado.local)
+				pronostico.scoreAway < pronostico.scoreHome)
 		) {
+			setDisabledSave(true);
+		} else if (defaultValuesDB) {
 			setDisabledSave(true);
 		} else {
 			setDisabledSave(false);
 		}
 	}, [pronostico]);
-	console.log(pronostico);
 	return (
 		<div className="container__card">
 			<div className="container__matchInfo">
@@ -136,10 +148,9 @@ const CardEnfrentamientosProde = ({ match, setProde, prode }) => {
 					className="pronostico__select"
 					onChange={(e) => handleSelect(e)}
 					disabled={editionEnable ? false : true}
-					defaultValue={
-						(match.fixture.prode?.pronostico.idGanador &&
-							match.fixture.prode.pronostico.idGanador) ||
-						(match.fixture.prode?.pronostico.empate && "empate")
+					value={
+						(pronostico.idGanador && pronostico.idGanador) ||
+						(pronostico.empate && "empate")
 					}
 				>
 					<option value="sin seleccion">--Equipo Ganador--</option>
@@ -164,11 +175,11 @@ const CardEnfrentamientosProde = ({ match, setProde, prode }) => {
 							required
 							type="number"
 							className="inputResultados"
-							id="local"
+							id="scoreHome"
 							placeholder="L"
 							onChange={handleResultado}
 							defaultValue={
-								match.fixture.prode?.pronostico.resultado.local
+								pronostico.scoreHome && pronostico.scoreHome
 							}
 							disabled={editionEnable ? false : true}
 						/>
@@ -177,10 +188,9 @@ const CardEnfrentamientosProde = ({ match, setProde, prode }) => {
 							type="number"
 							className="inputResultados"
 							placeholder="V"
-							id="visitante"
+							id="scoreAway"
 							defaultValue={
-								match.fixture.prode?.pronostico.resultado
-									.visitante
+								pronostico.scoreAway && pronostico.scoreAway
 							}
 							onChange={handleResultado}
 							disabled={editionEnable ? false : true}
