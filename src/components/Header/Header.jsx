@@ -15,11 +15,15 @@ const Header = () => {
 	const goToProfile = (e) => {
 		navigate("/my-profile");
 	};
+	const goToResult = (e) => {
+		navigate("/my-results");
+	};
 
 	return (
 		<div className="header-container">
 			<button onClick={handleLogOut}>Log out</button>
 			<button onClick={goToProfile}>Mi Perfil</button>
+			<button onClick={goToResult}>Mis Resultados</button>
 		</div>
 	);
 };

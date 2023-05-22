@@ -86,10 +86,7 @@ const CardEnfrentamientosProde = ({ match, setProde, prode }) => {
 			!selectModificado
 		) {
 			setDisabledSave(true);
-		} else if (
-			pronostico.empate &&
-			pronostico.scoreHome !== pronostico.scoreAway
-		) {
+		} else if (pronostico.scoreHome < 0 || pronostico.scoreAway < 0) {
 			setDisabledSave(true);
 		} else if (
 			!pronostico.empate &&
