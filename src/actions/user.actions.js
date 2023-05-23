@@ -79,7 +79,7 @@ export const updateUserDB = (idUser, data) => {
 			console.log("actualice");
 			dispatch(updateUserExito());
 		} catch (error) {
-			console.log("error en la actualizacion");
+			console.log(error);
 			dispatch(updateUserError("Error en la actualización"));
 		}
 	};

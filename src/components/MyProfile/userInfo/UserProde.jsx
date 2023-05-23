@@ -8,6 +8,7 @@ import { updateUserDB } from "../../../actions/user.actions";
 const UserProde = () => {
 	const fixture = useSelector((state) => state.data.fixtureProde);
 	const { userID } = useSelector((state) => state.auth.data);
+	const { data: userData } = useSelector((state) => state.users);
 	const [prode, setProde] = useState([]);
 	const [fixtureNotStarted, setFixtureNotStarted] = useState(true);
 	const dispatch = useDispatch();
@@ -16,6 +17,11 @@ const UserProde = () => {
 		dispatch(getFixtureProde(2023, 128, "1st Phase - 16"));
 	}, []);
 	useEffect(() => {
+		if (userData.prode) {
+			setProde(userData.prode);
+		}
+	}, [userData]);
+	/* 	useEffect(() => {
 		const matchesNotStarted = fixture.map(
 			(el) => el.fixture.status.long === "Not Started",
 		);
@@ -25,12 +31,12 @@ const UserProde = () => {
 			setFixtureNotStarted(true);
 		}
 	}, [fixture]);
-	const handleSubmit = () => {
+ */ const handleSubmit = () => {
 		if (prode.length !== 0) {
 			dispatch(updateUserDB(userID, { prode: prode }));
 		}
 	};
-	console.log(fixtureNotStarted);
+	console.log(prode);
 	return (
 		<div className="container__allMatches">
 			{!fixtureNotStarted ? (

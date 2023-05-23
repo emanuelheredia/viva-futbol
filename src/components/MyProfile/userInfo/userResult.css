@@ -1,0 +1,49 @@
+.result-matchs-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+    border: 1px solid whitesmoke;
+    border-radius: 10px;
+    background: linear-gradient(90deg, rgba(202,228,228,1) 0%, rgba(59,89,152,1) 48%, rgba(202,228,228,1) 100%);
+;
+}
+.score-result-container{
+    display: flex;
+    padding: 0 2px 0 2px;
+    width: 10%;
+    justify-content: space-evenly;
+    color: whitesmoke;
+    border: 1px solid whitesmoke;
+    border-radius: 5px;
+    margin: 3px;
+    font-size: 1.5rem;
+}
+.team-info-result-container{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    width: 45%;
+    height: 1.5rem;
+    overflow: hidden;
+    text-align: center;
+}
+.pronostico-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: whitesmoke;
+    gap: .5rem;
+    margin-bottom: .5rem;
+    font-size: .8rem;
+}
+.danger{
+    background: rgb(213,210,210);
+    background: linear-gradient(90deg, rgba(213,210,210,0.011642156862745057) 0%, rgba(209,20,20,1) 48%, rgba(214,209,209,0) 100%);    border-radius: 5px;
+}
+.succes{
+        background: rgb(213,210,210);
+    background: linear-gradient(90deg, rgba(213,210,210,0.011642156862745057) 0%, rgb(20, 209, 30) 48%, rgba(214,209,209,0) 100%);    border-radius: 5px;
+
+}
