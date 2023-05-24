@@ -113,29 +113,21 @@ const CardEnfrentamientosProde = ({ match, setProde, prode }) => {
 					<h4
 						style={{
 							display: "flex",
-							alignItems: "center",
-							gap: "5px",
+							textAlign: "center",
 						}}
 					>
 						{match.teams.home.name}
-						<img
-							className="logo__team"
-							src={match.teams.home.logo}
-						/>
 					</h4>
+					<img className="logo__team" src={match.teams.home.logo} />
 					<h4>VS</h4>
+					<img className="logo__team" src={match.teams.away.logo} />
 					<h4
 						style={{
 							display: "flex",
-							alignItems: "center",
-							gap: "5px",
+							textAlign: "center",
 						}}
 					>
 						{match.teams.away.name}
-						<img
-							className="logo__team"
-							src={match.teams.away.logo}
-						/>
 					</h4>
 				</div>
 				<h4>{getTime(match.fixture.date)}</h4>

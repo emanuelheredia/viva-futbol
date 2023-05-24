@@ -16,7 +16,7 @@ const UserResult = () => {
 	const [totalUSerResult, setTotalUSerResult] = useState(0);
 
 	useEffect(() => {
-		dispatch(getFixtureProde(2023, 128, "1st Phase - 18"));
+		dispatch(getFixtureProde(2023, 128, "1st Phase - 16"));
 	}, []);
 	useEffect(() => {
 		dispatch(getUserDB(userID));

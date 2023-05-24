@@ -1,10 +1,12 @@
 .container__allMatches{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
 }
 .btn__save-prode-db{
-    width: auto;
+    width: 200px;
     cursor: pointer;
     background-color: rgb(32, 163, 91);
     color: white;
@@ -13,4 +15,9 @@
     padding: 10px 15px;
     font-size: inherit;
     margin-bottom: 2rem;
+}
+@media (min-width:1400px){
+.container__allMatches{
+    gap: 1rem;
+}
 }

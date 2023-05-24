@@ -36,7 +36,6 @@ const UserProde = () => {
 			dispatch(updateUserDB(userID, { prode: prode }));
 		}
 	};
-	console.log(prode);
 	return (
 		<div className="container__allMatches">
 			{!fixtureNotStarted ? (
@@ -56,9 +55,20 @@ const UserProde = () => {
 			)}
 			{}
 			{fixtureNotStarted && (
-				<button className="btn__save-prode-db" onClick={handleSubmit}>
-					Save Prode
-				</button>
+				<div
+					style={{
+						width: "100%",
+						display: "flex",
+						justifyContent: "center",
+					}}
+				>
+					<button
+						className="btn__save-prode-db"
+						onClick={handleSubmit}
+					>
+						Save Prode
+					</button>
+				</div>
 			)}
 		</div>
 	);
