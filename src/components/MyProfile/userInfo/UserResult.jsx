@@ -13,9 +13,10 @@ const UserResult = () => {
 	const [fechaFinalizada, setFechaFinalizada] = useState(true);
 	const [resultadosFecha, setResultadosFecha] = useState([]);
 	const [userResults, setUserResults] = useState([]);
+	const [totalUSerResult, setTotalUSerResult] = useState(0);
 
 	useEffect(() => {
-		dispatch(getFixtureProde(2023, 128, "1st Phase - 16"));
+		dispatch(getFixtureProde(2023, 128, "1st Phase - 18"));
 	}, []);
 	useEffect(() => {
 		dispatch(getUserDB(userID));
@@ -45,6 +46,20 @@ const UserResult = () => {
 			setResultadosFecha([]);
 		}
 	}, [fixture, fechaFinalizada]);
+	useEffect(() => {
+		if (userData.prode && userData.prode.length > 0 && resultadosFecha) {
+			setUserResults(userData.prode.map((el) => getResultByProde(el)));
+		}
+		let resultadoTotal = 0;
+		userResults.map((el) => {
+			if (el) {
+				resultadoTotal +=
+					el.puntaje.resultadoAcertado +
+					el.puntaje.pronosticoAcertado;
+			}
+		});
+		setTotalUSerResult(resultadoTotal);
+	}, [userData, fixture, resultadosFecha]);
 	const getIDTeamWinner = (fixture) => {
 		const localTeam = fixture.teams.home;
 		const visitorTeam = fixture.teams.away;
@@ -57,7 +72,6 @@ const UserResult = () => {
 		return visitorTeam.id;
 	};
 	const getResultByProde = (pronostico) => {
-		console.log(pronostico);
 		const resultadoFixtureByIDpronositco = resultadosFecha.filter(
 			(el) => el.idFixture === pronostico.id,
 		);
@@ -86,15 +100,10 @@ const UserResult = () => {
 			) {
 				puntaje.resultadoAcertado = 3;
 			}
-
 			return { id: pronostico.id, puntaje };
 		}
+		return null;
 	};
-	useEffect(() => {
-		if (userData.prode && userData.prode.length > 0 && resultadosFecha) {
-			setUserResults(userData.prode.map((el) => getResultByProde(el)));
-		}
-	}, [userData, resultadosFecha]);
 	const getForecastSent = (matchID) => {
 		const forecastFiltered = userData.prode.filter(
 			(el) => el.id === matchID,
@@ -105,28 +114,46 @@ const UserResult = () => {
 		return null;
 	};
 	const getSuccesForecast = (userForecast) => {
+		if (!userResults[0]) {
+			return;
+		}
 		const resultFiltered = userResults.filter(
 			(el) => el.id === userForecast.id,
-		);
-		console.log(resultFiltered);
+		)[0];
+		if (!resultFiltered) {
+			return;
+		}
+		let finalScore =
+			resultFiltered.puntaje.pronosticoAcertado +
+			resultFiltered.puntaje.resultadoAcertado;
+		if (finalScore === 6) {
+			return "forecast-all-success";
+		} else if (finalScore === 3) {
+			return "forecast-success";
+		} else {
+			return "forecast-wrong";
+		}
 	};
-
 	return (
-		<div style={{ marginTop: "5rem" }}>
+		<div className="container-all-results">
 			{!fechaFinalizada && (
-				<h4>
+				<h2 className="title-fixture-in-procces">
 					Aun la fecha no finalizó, aguardá su conclusión para ver tus
-					resultados
-				</h4>
+					resultados . . .
+				</h2>
 			)}
-			{!userData.prode && <h4>No se registraron pronóstico</h4>}
-			{userData.prode?.length !== fixture.length && (
-				<h4>No se completaron todos los pronosticos</h4>
+			{fechaFinalizada && (
+				<h2 className="title-total-score">
+					Puntaje Final : {totalUSerResult} pts
+				</h2>
 			)}
 			{fechaFinalizada &&
-				fixture.map((match) => (
-					<div style={{ marginLeft: "2rem", marginRight: "2rem" }}>
-						<div className="result-matchs-container">
+				fixture.map((match, index) => (
+					<div
+						key={index}
+						className="external-matchs-results-container"
+					>
+						<div className="internal-matchs-results-container">
 							<div className="team-info-result-container">
 								<h4>{match.teams.home.name}</h4>
 								<img src={match.teams.home.logo} />
@@ -143,25 +170,26 @@ const UserResult = () => {
 						</div>
 						{userData.prode && getForecastSent(match.fixture.id) ? (
 							<div
-								className={getSuccesForecast(
-									getForecastSent(match.fixture.id),
-								)}
+								className={
+									"pronostico-container " +
+									getSuccesForecast(
+										getForecastSent(match.fixture.id),
+									)
+								}
 							>
 								<h4>Tu pronóstico fue:</h4>
 								<h4>
 									{userData.prode &&
-										getForecastSent(match.fixture.id) &&
 										getForecastSent(match.fixture.id)
-											.pronostico.scoreHome}{" "}
-									-{" "}
+											.pronostico.scoreHome}
+									-
 									{userData.prode &&
-										getForecastSent(match.fixture.id) &&
 										getForecastSent(match.fixture.id)
 											.pronostico.scoreAway}
 								</h4>
 							</div>
 						) : (
-							<h4 className="pronostico-container succes">
+							<h4 className="pronostico-container forecast-until">
 								No registraste ningún pronostico para este
 								partido
 							</h4>

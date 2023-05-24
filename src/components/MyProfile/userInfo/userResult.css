@@ -1,8 +1,20 @@
-.result-matchs-container{
+.container-all-results{
+    margin-top: 6rem;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    flex-wrap: wrap;
+}
+.external-matchs-results-container{
+    width: 100%;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+.internal-matchs-results-container{
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
     gap: 1rem;
     border: 1px solid whitesmoke;
     border-radius: 10px;
@@ -18,16 +30,22 @@
     border: 1px solid whitesmoke;
     border-radius: 5px;
     margin: 3px;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
 }
 .team-info-result-container{
+    font-size: .8rem;
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 1rem;
     width: 45%;
     height: 1.5rem;
     overflow: hidden;
     text-align: center;
+}
+.team-info-result-container>img{
+    width: 18px;
+    height: 18px;
 }
 .pronostico-container{
     width: 100%;
@@ -36,14 +54,91 @@
     color: whitesmoke;
     gap: .5rem;
     margin-bottom: .5rem;
-    font-size: .8rem;
+    font-size: .7rem;
 }
-.danger{
+.forecast-wrong{
     background: rgb(213,210,210);
     background: linear-gradient(90deg, rgba(213,210,210,0.011642156862745057) 0%, rgba(209,20,20,1) 48%, rgba(214,209,209,0) 100%);    border-radius: 5px;
 }
-.succes{
+.forecast-all-success{
         background: rgb(213,210,210);
-    background: linear-gradient(90deg, rgba(213,210,210,0.011642156862745057) 0%, rgb(20, 209, 30) 48%, rgba(214,209,209,0) 100%);    border-radius: 5px;
+    background: linear-gradient(90deg, rgba(213,210,210,0.011642156862745057) 0%, rgb(45, 197, 53) 48%, rgba(214,209,209,0) 100%);    border-radius: 5px;
+}
+.forecast-success{
+        background: rgb(213,210,210);
+    background: linear-gradient(90deg, rgba(213,210,210,0.011642156862745057) 0%, rgb(28, 107, 226) 48%, rgba(214,209,209,0) 100%);    border-radius: 5px;
+}
+.forecast-until{
+        background: rgb(213,210,210);
+    background: linear-gradient(90deg, rgba(213,210,210,0.011642156862745057) 0%, rgb(75, 75, 75) 48%, rgba(214,209,209,0) 100%);    border-radius: 5px;
+}
+.title-total-score{
+    font-size: 1.5rem;
+    width: 100%;
+    margin-inline: 3rem;
+    padding: 1rem 0 1rem 0;
+    text-align: center;
+    color: whitesmoke;
+    background: rgb(255,255,255);
+background: linear-gradient(90deg, rgba(255,255,255,0.011642156862745057) 0%, rgb(0, 0, 0) 48%, rgba(255,255,255,0) 100%);
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    border-top: 4px solid linear-gradient(90deg, rgba(255,255,255,0.011642156862745057) 0%, rgb(0, 0, 0) 48%, rgba(255,255,255,0) 100%);;
+    border-bottom:4px solid linear-gradient(90deg, rgba(255,255,255,0.011642156862745057) 0%, rgb(18, 0, 100) 48%, rgba(255,255,255,0) 100%);; ;
+}
+.title-fixture-in-procces{
+    display: flex;
+    padding: 3rem;
+    height: 70vh;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+@media (min-width:780px){
+.external-matchs-results-container{
+    width: 47%;
+    margin: 0 .5rem 0 .5rem;
+}
+.team-info-result-container{
+    height: 2.5rem;
+}
+.team-info-result-container>img{
+    width: 25px;
+    height: 25px;
+}
+.score-result-container{
+    font-size: 1.5rem;
+}
+.pronostico-container{
+    font-size: .9rem;
+}
+}
+@media (min-width:1290px){
+.team-info-result-container{
+    font-size: 1.1rem;
+    height: 2.5rem;
+}
+.team-info-result-container>img{
+    width: 25px;
+    height: 25px;
+}
+.score-result-container{
+    font-size: 1.5rem;
+}
+.pronostico-container{
+    font-size: .9rem;
+}
+.title-fixture-in-procces{
+    font-size: 2rem;
+}
+}
+@media (min-width:1920px){
+    .external-matchs-results-container{
+    width: 32%;
+    margin: 0 .5rem 0 .5rem;
+}
+.team-info-result-container{
+    font-size: 1.3rem;
+}
 
 }
