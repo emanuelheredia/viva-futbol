@@ -3,7 +3,7 @@ import "./userProde.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getFixtureProde } from "../../../actions/infoAPI.actions";
 import CardEnfrentamientosProde from "./CardEnfrentamientosProde";
-import { updateUserDB } from "../../../actions/user.actions";
+import { updateUserProdeDB } from "../../../actions/user.actions";
 
 const UserProde = () => {
 	const fixture = useSelector((state) => state.data.fixtureProde);
@@ -33,7 +33,7 @@ const UserProde = () => {
 	}, [fixture]);
  */ const handleSubmit = () => {
 		if (prode.length !== 0) {
-			dispatch(updateUserDB(userID, { prode: prode }));
+			dispatch(updateUserProdeDB(userID, { prode: prode }));
 		}
 	};
 	return (

@@ -8,6 +8,9 @@ import {
 	GET_FIXTURE_PRODE,
 	GET_FIXTURE_PRODE_ERROR,
 	GET_FIXTURE_PRODE_EXITO,
+	GET_TEAMS,
+	GET_TEAMS_EXITO,
+	GET_TEAMS_ERROR,
 } from "../types";
 import { helpHttp } from "../helpers/helpHttp";
 import config from "../config";
@@ -118,5 +121,35 @@ const getFixtureExito = (data) => ({
 });
 const getFixtureError = (msg) => ({
 	type: GET_FIXTURE_PRODE_ERROR,
+	payload: msg,
+});
+
+export const getAllTeams = () => {
+	return async (dispatch) => {
+		dispatch(getTeams());
+		try {
+			helpHttp()
+				.get("https://" + config.HOST1 + "teams?search=ARG", {
+					headers: {
+						"x-rapidapi-host": config.HOST1,
+						"x-rapidapi-key": config.KEY1,
+					},
+				})
+				.then((res) => {
+					dispatch(getTeamsExito(res.response));
+				});
+		} catch (error) {
+			dispatch(getTeamsError("Error en la aextracción fixture prode"));
+		}
+	};
+};
+
+const getTeams = () => ({ type: GET_TEAMS });
+const getTeamsExito = (data) => ({
+	type: GET_TEAMS_EXITO,
+	payload: data,
+});
+const getTeamsError = (msg) => ({
+	type: GET_TEAMS_ERROR,
 	payload: msg,
 });

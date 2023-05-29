@@ -8,6 +8,9 @@ import {
 	GET_USER_DB,
 	GET_USER_DB_EXITO,
 	GET_ALL_COUNTRIES_ERROR,
+	UPDATE_USER_PRODE_DB,
+	UPDATE_USER_PRODE_DB_EXITO,
+	UPDATE_USER_PRODE_DB_ERROR,
 } from "../types/index";
 import { db, coleccion } from "../firebase";
 import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
@@ -18,6 +21,10 @@ export const addUserDB = (idUser, userEmail) => {
 		try {
 			await setDoc(doc(db, "users", idUser), {
 				email: userEmail,
+				name: "sin nombre",
+				lastName: "sin apellido",
+				nickName: "sin nick name",
+				favouriteTeam: "ninguno",
 			});
 			dispatch(addUserExito());
 		} catch (error) {
@@ -68,13 +75,16 @@ const getUserError = (error) => ({
 });
 
 export const updateUserDB = (idUser, data) => {
-	const { prode } = data;
+	const { name, lastName, nickName, favouriteTeam } = data;
 	return async (dispatch) => {
 		console.log("envio de datos");
 		dispatch(updateUser());
 		try {
 			await updateDoc(doc(db, "users", idUser), {
-				prode: prode,
+				name: name,
+				lastName: lastName,
+				nickName: nickName,
+				favouriteTeam: favouriteTeam,
 			});
 			console.log("actualice");
 			dispatch(updateUserExito());
@@ -93,5 +103,34 @@ const updateUserExito = () => ({
 });
 const updateUserError = (error) => ({
 	type: UPDATE_USER_DB_ERROR,
+	payload: error,
+});
+
+export const updateUserProdeDB = (idUser, data) => {
+	const { prode } = data;
+	return async (dispatch) => {
+		console.log("envio de datos");
+		dispatch(updateUserProde());
+		try {
+			await updateDoc(doc(db, "users", idUser), {
+				prode: prode,
+			});
+			console.log("actualice");
+			dispatch(updateUserProdeExito());
+		} catch (error) {
+			console.log(error);
+			dispatch(updateUserProdeError("Error en la actualización"));
+		}
+	};
+};
+
+const updateUserProde = () => ({
+	type: UPDATE_USER_PRODE_DB,
+});
+const updateUserProdeExito = () => ({
+	type: UPDATE_USER_PRODE_DB_EXITO,
+});
+const updateUserProdeError = (error) => ({
+	type: UPDATE_USER_PRODE_DB_ERROR,
 	payload: error,
 });

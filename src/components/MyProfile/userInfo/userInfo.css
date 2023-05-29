@@ -1,0 +1,10 @@
+.userInfo-contenedor-formulario{
+    display: flex;
+    flex-direction: column;
+}
+.userInfo-contenedor-input{
+    
+}
+.userInfo-teamSelect{
+    width: 200px;
+}
