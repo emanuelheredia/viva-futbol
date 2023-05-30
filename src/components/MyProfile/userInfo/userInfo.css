@@ -19,6 +19,7 @@
     border-bottom: 2px solid  rgb(88, 130, 219);
 }
 .userInfo-contenedor-input>label{
+    padding-left: .5rem;
     width: 50%;
 }
 .userInfo-contenedor-input-info{

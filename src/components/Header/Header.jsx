@@ -18,12 +18,15 @@ const Header = () => {
 	const goToResult = (e) => {
 		navigate("/my-results");
 	};
-
+	const goToPositions = (e) => {
+		navigate("/positions");
+	};
 	return (
 		<div className="header-container">
 			<button onClick={handleLogOut}>Log out</button>
 			<button onClick={goToProfile}>Mi Perfil</button>
 			<button onClick={goToResult}>Mis Resultados</button>
+			<button onClick={goToPositions}>Posiciones</button>
 		</div>
 	);
 };

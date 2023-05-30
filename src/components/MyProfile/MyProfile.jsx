@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./myProfile.css";
 import { useSelector } from "react-redux";
 import UserInfo from "./userInfo/UserInfo";
-import UserProde from "./userInfo/UserProde";
+import UserProde from "./userProde/UserProde";
 import { useDispatch } from "react-redux";
 import { getUserDB } from "../../actions/user.actions";
 

@@ -20,7 +20,7 @@
     font-size: inherit;
     margin-bottom: 2rem;
 }
-@media (min-width:1400px){
+@media (min-width:1485px){
 .container__allMatches{
     gap: 1rem;
 }

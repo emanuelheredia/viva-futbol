@@ -7,7 +7,8 @@ import Login from "./components/Auth/Login";
 import Registrer from "./components/Auth/Registrer";
 import { ProtectedRoute } from "./components/Auth/ProtectedRoute";
 import MyProfile from "./components/MyProfile/MyProfile";
-import UserResult from "./components/MyProfile/userInfo/UserResult";
+import UserResult from "./components/MyResult/UserResult";
+import Positions from "./components/Positions/Positions";
 function App() {
 	return (
 		<>
@@ -25,6 +26,7 @@ function App() {
 				<Route path="/my-results" element={<UserResult />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/registrer" element={<Registrer />} />
+				<Route path="/positions" element={<Positions />} />
 			</Routes>
 		</>
 	);
