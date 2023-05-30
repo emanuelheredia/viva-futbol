@@ -1,3 +1,7 @@
+.userInfo-prode-title{
+    padding:0  1rem .5rem 1rem;
+    text-align: center;
+}
 .container__allMatches{
     display: flex;
     flex-direction: row;

@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserDB } from "../../../actions/user.actions";
 import { updateUserDB } from "../../../actions/user.actions";
 import { getAllTeams } from "../../../actions/infoAPI.actions";
+import checkIcon from "../../../assets/check.png";
+import editIcon from "../../../assets/edit.png";
+
 import Select from "react-select";
 
 const initialUser = {
@@ -54,16 +57,17 @@ const UserInfo = ({ userID }) => {
 	}, [data.teams]);
 	useEffect(() => {
 		if (
-			users.data.name !== user.name ||
-			users.data.lastName !== user.lastName ||
-			users.data.nickName !== user.nickName ||
-			users.data.favouriteTeam !== user.favouriteTeam
+			(users.data.name !== user.name ||
+				users.data.lastName !== user.lastName ||
+				users.data.nickName !== user.nickName ||
+				users.data.favouriteTeam !== user.favouriteTeam) &&
+			!Object.values(edit).some((el) => el === true)
 		) {
 			setShowSaveBTN(true);
 		} else {
 			setShowSaveBTN(false);
 		}
-	}, [user]);
+	}, [user, edit]);
 	const handleChange = (e) => {
 		setUser({ ...user, [e.target.name]: e.target.value });
 	};
@@ -79,9 +83,9 @@ const UserInfo = ({ userID }) => {
 	const handleChangeSelect = (e) => {
 		setUser({ ...user, favouriteTeam: e });
 	};
-	console.log(user);
 	return (
 		<div>
+			<h2 className="userInfo-misDatos-title">Mis Datos</h2>
 			<form
 				onSubmit={handleSubmit}
 				className="userInfo-contenedor-formulario"
@@ -89,98 +93,134 @@ const UserInfo = ({ userID }) => {
 				<div className="userInfo-contenedor-input">
 					<label htmlFor="name">Nombre: </label>
 					{edit.name ? (
-						<div>
+						<div className="userInfo-contenedor-input-info">
 							<input
 								name="name"
 								type="text"
 								defaultValue={user.name}
 								onChange={handleChange}
 							/>
-							<button name="name" onClick={handleEdit}>
-								ok
-							</button>
+							<img
+								src={checkIcon}
+								className="userInfo-icon-check-edit"
+								name="name"
+								onClick={handleEdit}
+							/>
 						</div>
 					) : (
-						<div>
-							<h4>{user.name}</h4>
-							<button name="name" onClick={handleEdit}>
-								Edit
-							</button>
+						<div className="userInfo-contenedor-input-info">
+							<h4>{user.name.toUpperCase()}</h4>
+							<img
+								className="userInfo-icon-check-edit"
+								name="name"
+								onClick={handleEdit}
+								src={editIcon}
+							/>
 						</div>
 					)}
 				</div>
 				<div className="userInfo-contenedor-input">
 					<label htmlFor="lastName">Apellido: </label>
 					{edit.lastName ? (
-						<div>
+						<div className="userInfo-contenedor-input-info">
 							<input
 								name="lastName"
 								type="text"
 								defaultValue={user.lastName}
 								onChange={handleChange}
 							/>
-							<button name="lastName" onClick={handleEdit}>
-								ok
-							</button>
+							<img
+								src={checkIcon}
+								className="userInfo-icon-check-edit"
+								name="lastName"
+								onClick={handleEdit}
+							/>
 						</div>
 					) : (
-						<div>
-							<h4>{user.lastName}</h4>
-							<button name="lastName" onClick={handleEdit}>
-								Edit
-							</button>
+						<div className="userInfo-contenedor-input-info">
+							<h4>{user.lastName.toUpperCase()}</h4>
+							<img
+								className="userInfo-icon-check-edit"
+								name="lastName"
+								onClick={handleEdit}
+								src={editIcon}
+							/>
 						</div>
 					)}
 				</div>
 				<div className="userInfo-contenedor-input">
 					<label htmlFor="nickname">Nickname: </label>
 					{edit.nickName ? (
-						<div>
+						<div className="userInfo-contenedor-input-info">
 							<input
 								name="nickName"
 								type="text"
 								defaultValue={user.nickName}
 								onChange={handleChange}
 							/>
-							<button name="nickName" onClick={handleEdit}>
-								ok
-							</button>
+							<img
+								src={checkIcon}
+								className="userInfo-icon-check-edit"
+								name="nickName"
+								onClick={handleEdit}
+							/>
 						</div>
 					) : (
-						<div>
-							<h4>{user.nickName}</h4>
-							<button name="nickName" onClick={handleEdit}>
-								Edit
-							</button>
+						<div className="userInfo-contenedor-input-info">
+							<h4>{user.nickName.toUpperCase()}</h4>
+							<img
+								className="userInfo-icon-check-edit"
+								name="nickName"
+								onClick={handleEdit}
+								src={editIcon}
+							/>
 						</div>
 					)}
 				</div>
 				<div className="userInfo-contenedor-input">
-					<label htmlFor="favouriteTeam">Equipo Favorito: </label>
+					<label htmlFor="favouriteTeam">Equipo: </label>
 					{edit.favouriteTeam ? (
-						<div>
+						<div className="userInfo-contenedor-input-info">
 							<Select
 								name="favouriteTeam"
 								className="userInfo-teamSelect"
+								placeholder={
+									user.favouriteTeam?.label || "Tu equipo"
+								}
 								options={teamsName}
 								type="text"
 								onChange={handleChangeSelect}
 							/>
-							<button name="favouriteTeam" onClick={handleEdit}>
-								ok
-							</button>
+							<img
+								src={checkIcon}
+								className="userInfo-icon-check-edit"
+								name="favouriteTeam"
+								onClick={handleEdit}
+							/>
 						</div>
 					) : (
-						<div>
+						<div className="userInfo-contenedor-input-info">
 							<h4>{user.favouriteTeam?.label}</h4>
-							<button name="favouriteTeam" onClick={handleEdit}>
-								Edit
-							</button>
+							<img
+								style={{ width: "30px" }}
+								src={user.favouriteTeam?.logo}
+							/>
+							<img
+								className="userInfo-icon-check-edit"
+								name="favouriteTeam"
+								onClick={handleEdit}
+								src={editIcon}
+							/>
 						</div>
 					)}
 				</div>
 				{showSaveBTN && (
-					<button onClick={handleSubmit}>Almacenar Cambios</button>
+					<button
+						className="userInfo-btn-save"
+						onClick={handleSubmit}
+					>
+						Almacenar Cambios
+					</button>
 				)}
 			</form>
 		</div>

@@ -1,10 +1,118 @@
+.userInfo-misDatos-title{
+    padding: 1rem 1rem .5rem 1rem;
+    text-align: center;
+}
 .userInfo-contenedor-formulario{
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0rem 2rem 2rem 2rem;
+    flex-wrap: wrap;
+    gap: .2rem;
 }
 .userInfo-contenedor-input{
-    
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: .5rem;
+    font-size: 1rem;
+    border-bottom: 2px solid  rgb(88, 130, 219);
 }
-.userInfo-teamSelect{
-    width: 200px;
+.userInfo-contenedor-input>label{
+    width: 50%;
+}
+.userInfo-contenedor-input-info{
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    color: rgb(129, 127, 127);
+}
+.userInfo-contenedor-input-info>input{
+    width: 145px;
+    padding: 9px;
+    border-style: none;
+    border-radius: 3px;
+    font-size: 1rem;
+    color: inherit;
+}
+.userInfo-contenedor-input-info>h4{
+    color: whitesmoke;
+    padding: 3px 15px 3px 15px;
+    margin-bottom: 2px;
+    background: rgb(7,64,136);
+    border-radius: 5px;
+    background: linear-gradient(90deg, rgba(7,64,136,0.6194852941176471) 0%, rgba(7,64,136,0.5186449579831933) 0%, rgba(7,64,136,1) 0%, rgba(7,64,136,0.5522584033613445) 1%);}
+.userInfo-icon-check-edit{
+    width: 30px;
+    cursor: pointer;
+}
+.userInfo-btn-save{
+    margin-top: 1rem;
+    width: 150px;
+    border-style: none;
+    cursor: pointer;
+    padding: .5rem;
+    font-size: 1rem;
+    background-color: rgb(88, 130, 219);
+    color: whitesmoke;
+    border-radius: 5px;
+}
+.userInfo-btn-save:hover{
+    background-color: rgb(27, 88, 219);
+}
+.userInfo-icon-check-edit:hover{
+    animation-name: sheker;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+@keyframes sheker{
+    0%{
+        transform: skewX(10deg);
+    }
+    25%{
+        transform: skewX(0deg);
+    }
+    50%{
+        transform: skewX(-10deg);
+    }
+    100%{
+        transform: skewX(0deg);
+    }
+}
+@media (min-width: 600px){
+    .userInfo-contenedor-input>label{
+    width: 60%;
+}
+}
+@media (min-width: 780px){
+    .userInfo-contenedor-formulario{
+        gap: 1rem;
+    }
+.userInfo-contenedor-input{
+    width: 48%;
+        border-radius: 5px;
+    border-right: 3px solid rgb(88, 130, 219);
+
+}
+.userInfo-contenedor-input>label{
+    width: 38%;
+}
+}
+@media (min-width: 920px){
+    .userInfo-contenedor-input{
+    width: 48%;
+}
+.userInfo-contenedor-input>label{
+    width: 40%;
+}
+}
+@media (min-width: 1230px){
+.userInfo-contenedor-input>label{
+    width: 55%;
+}
+}
+@media (min-width: 1920px){
+.userInfo-contenedor-input>label{
+    width: 70%;
+}
 }

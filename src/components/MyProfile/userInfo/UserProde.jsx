@@ -37,39 +37,42 @@ const UserProde = () => {
 		}
 	};
 	return (
-		<div className="container__allMatches">
-			{!fixtureNotStarted ? (
-				<h4>
-					No se podrán realizar mas predicciones debido a que la fecha
-					inició
-				</h4>
-			) : (
-				fixture?.map((el, index) => (
-					<CardEnfrentamientosProde
-						key={index}
-						match={el}
-						setProde={setProde}
-						prode={prode}
-					/>
-				))
-			)}
-			{}
-			{fixtureNotStarted && (
-				<div
-					style={{
-						width: "100%",
-						display: "flex",
-						justifyContent: "center",
-					}}
-				>
-					<button
-						className="btn__save-prode-db"
-						onClick={handleSubmit}
+		<div>
+			<h2 className="userInfo-prode-title">Mi Pronóstico</h2>
+			<div className="container__allMatches">
+				{!fixtureNotStarted ? (
+					<h4>
+						No se podrán realizar mas predicciones debido a que la
+						fecha inició
+					</h4>
+				) : (
+					fixture?.map((el, index) => (
+						<CardEnfrentamientosProde
+							key={index}
+							match={el}
+							setProde={setProde}
+							prode={prode}
+						/>
+					))
+				)}
+				{}
+				{fixtureNotStarted && (
+					<div
+						style={{
+							width: "100%",
+							display: "flex",
+							justifyContent: "center",
+						}}
 					>
-						Save Prode
-					</button>
-				</div>
-			)}
+						<button
+							className="btn__save-prode-db"
+							onClick={handleSubmit}
+						>
+							Save Prode
+						</button>
+					</div>
+				)}
+			</div>
 		</div>
 	);
 };
