@@ -1,9 +1,9 @@
 .userInfo-misDatos-title{
     padding: 1rem 1rem .5rem 1rem;
-    text-align: center;
 }
 .userInfo-contenedor-formulario{
     display: flex;
+    width: 60%;
     align-items: center;
     justify-content: center;
     margin: 0rem 2rem 2rem 2rem;
@@ -20,7 +20,7 @@
 }
 .userInfo-contenedor-input>label{
     padding-left: .5rem;
-    width: 50%;
+    width: 30%;
 }
 .userInfo-contenedor-input-info{
     display: flex;
@@ -82,38 +82,39 @@
 }
 @media (min-width: 600px){
     .userInfo-contenedor-input>label{
-    width: 60%;
+    width: 40%;
 }
 }
 @media (min-width: 780px){
     .userInfo-contenedor-formulario{
         gap: 1rem;
+        width: 80%;
     }
 .userInfo-contenedor-input{
     width: 48%;
-        border-radius: 5px;
+    border-radius: 5px;
     border-right: 3px solid rgb(88, 130, 219);
 
 }
 .userInfo-contenedor-input>label{
-    width: 38%;
+    width: 30%;
 }
 }
 @media (min-width: 920px){
     .userInfo-contenedor-input{
-    width: 48%;
+    width: 45%;
 }
 .userInfo-contenedor-input>label{
-    width: 40%;
+    width: 30%;
 }
 }
 @media (min-width: 1230px){
 .userInfo-contenedor-input>label{
-    width: 55%;
+    width: 30%;
 }
 }
 @media (min-width: 1920px){
 .userInfo-contenedor-input>label{
-    width: 70%;
+    width: 40%;
 }
 }

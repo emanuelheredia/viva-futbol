@@ -84,7 +84,13 @@ const UserInfo = ({ userID }) => {
 		setUser({ ...user, favouriteTeam: e });
 	};
 	return (
-		<div>
+		<div
+			style={{
+				display: "flex",
+				flexDirection: "column",
+				alignItems: "center",
+			}}
+		>
 			<h2 className="userInfo-misDatos-title">Mis Datos</h2>
 			<form
 				onSubmit={handleSubmit}
