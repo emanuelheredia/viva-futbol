@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signUp } from "../../actions/auth.actions";
+import { signUp } from "../../redux/actions/auth.actions";
 import { useNavigate } from "react-router-dom";
 import Form from "./Form";
-import { addUserDB } from "../../actions/user.actions";
+import { addUserDB } from "../../redux/actions/user.actions";
 
 const Registrer = () => {
 	const dispatch = useDispatch();

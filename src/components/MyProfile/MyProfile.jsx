@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import UserInfo from "./userInfo/UserInfo";
 import UserProde from "./userProde/UserProde";
 import { useDispatch } from "react-redux";
-import { getUserDB } from "../../actions/user.actions";
+import { getUserDB } from "../../redux/actions/user.actions";
 
 const MyProfile = () => {
 	const { auth } = useSelector((state) => state);

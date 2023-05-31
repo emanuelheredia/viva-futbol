@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./userInfo.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserDB } from "../../../actions/user.actions";
-import { updateUserDB } from "../../../actions/user.actions";
-import { getAllTeams } from "../../../actions/infoAPI.actions";
+import { getUserDB } from "../../../redux/actions/user.actions";
+import { updateUserDB } from "../../../redux/actions/user.actions";
+import { getAllTeams } from "../../../redux/actions/infoAPI.actions";
 import checkIcon from "../../../assets/check.png";
 import editIcon from "../../../assets/edit.png";
 
@@ -115,7 +115,7 @@ const UserInfo = ({ userID }) => {
 						</div>
 					) : (
 						<div className="userInfo-contenedor-input-info">
-							<h4>{user.name.toUpperCase()}</h4>
+							<h4>{user.name?.toUpperCase()}</h4>
 							<img
 								className="userInfo-icon-check-edit"
 								name="name"
@@ -144,7 +144,7 @@ const UserInfo = ({ userID }) => {
 						</div>
 					) : (
 						<div className="userInfo-contenedor-input-info">
-							<h4>{user.lastName.toUpperCase()}</h4>
+							<h4>{user.lastName?.toUpperCase()}</h4>
 							<img
 								className="userInfo-icon-check-edit"
 								name="lastName"
@@ -173,7 +173,7 @@ const UserInfo = ({ userID }) => {
 						</div>
 					) : (
 						<div className="userInfo-contenedor-input-info">
-							<h4>{user.nickName.toUpperCase()}</h4>
+							<h4>{user.nickName?.toUpperCase()}</h4>
 							<img
 								className="userInfo-icon-check-edit"
 								name="nickName"
@@ -206,7 +206,7 @@ const UserInfo = ({ userID }) => {
 						</div>
 					) : (
 						<div className="userInfo-contenedor-input-info">
-							<h4>{user.favouriteTeam?.label}</h4>
+							<h4>{user.favouriteTeam?.label || "Tu equipo"}</h4>
 							<img
 								style={{ width: "30px" }}
 								src={user.favouriteTeam?.logo}

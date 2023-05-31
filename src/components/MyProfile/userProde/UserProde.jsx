@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./userProde.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getFixtureProde } from "../../../actions/infoAPI.actions";
+import { getFixtureProde } from "../../../redux/actions/infoAPI.actions";
 import CardEnfrentamientosProde from "./CardEnfrentamientosProde";
-import { updateUserProdeDB } from "../../../actions/user.actions";
+import { updateUserProdeDB } from "../../../redux/actions/user.actions";
 
 const UserProde = () => {
 	const fixture = useSelector((state) => state.data.fixtureProde);

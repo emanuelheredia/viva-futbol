@@ -12,7 +12,7 @@ import {
 	UPDATE_USER_PRODE_DB_EXITO,
 	UPDATE_USER_PRODE_DB_ERROR,
 } from "../types/index";
-import { db, coleccion } from "../firebase";
+import { db, coleccion } from "../../firebase";
 import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
 
 export const addUserDB = (idUser, userEmail) => {

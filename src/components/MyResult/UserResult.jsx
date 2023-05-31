@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getFixtureProde } from "../../actions/infoAPI.actions";
-import { getUserDB } from "../../actions/user.actions";
+import { getFixtureProde } from "../../redux/actions/infoAPI.actions";
+import { getUserDB } from "../../redux/actions/user.actions";
+import {
+	getResultadosFromFixture,
+	getUserScore,
+} from "../../helpers/helpFunctions";
 import "./userResult.css";
 
 const UserResult = () => {
@@ -33,77 +37,24 @@ const UserResult = () => {
 	}, [fixture]);
 	useEffect(() => {
 		if (fixture.length !== 0 && fechaFinalizada) {
-			const resultados = fixture.map((el) => {
-				const resultadoMatch = {
-					idFixture: el.fixture.id,
-					idGanador: getIDTeamWinner(el),
-					resultado: el.score.fulltime,
-				};
-				return resultadoMatch;
-			});
-			setResultadosFecha(resultados);
+			const resultadosFormateados = getResultadosFromFixture(fixture);
+			setResultadosFecha(resultadosFormateados);
 		} else {
 			setResultadosFecha([]);
 		}
 	}, [fixture, fechaFinalizada]);
 	useEffect(() => {
-		if (userData.prode && userData.prode.length > 0 && resultadosFecha) {
-			setUserResults(userData.prode.map((el) => getResultByProde(el)));
-		}
 		let resultadoTotal = 0;
-		userResults.map((el) => {
-			if (el) {
-				resultadoTotal +=
-					el.puntaje.resultadoAcertado +
-					el.puntaje.pronosticoAcertado;
-			}
-		});
+		if (userData.prode && userData.prode.length > 0 && resultadosFecha) {
+			const { scoresByMatchs, totalUserScore } = getUserScore(
+				userData.prode,
+				resultadosFecha,
+			);
+			resultadoTotal = totalUserScore;
+			setUserResults(scoresByMatchs);
+		}
 		setTotalUSerResult(resultadoTotal);
 	}, [userData, fixture, resultadosFecha]);
-	const getIDTeamWinner = (fixture) => {
-		const localTeam = fixture.teams.home;
-		const visitorTeam = fixture.teams.away;
-		if (localTeam.winner === null) {
-			return null;
-		}
-		if (localTeam.winner === true) {
-			return localTeam.id;
-		}
-		return visitorTeam.id;
-	};
-	const getResultByProde = (pronostico) => {
-		const resultadoFixtureByIDpronositco = resultadosFecha.filter(
-			(el) => el.idFixture === pronostico.id,
-		);
-		if (resultadoFixtureByIDpronositco[0]) {
-			const puntaje = {
-				pronosticoAcertado: 0,
-				resultadoAcertado: 0,
-			};
-			if (
-				resultadoFixtureByIDpronositco[0].idGanador ===
-				pronostico.pronostico.idGanador
-			) {
-				puntaje.pronosticoAcertado = 3;
-			}
-			if (
-				resultadoFixtureByIDpronositco[0].idGanador ===
-				Number(pronostico.pronostico.idGanador)
-			) {
-				puntaje.pronosticoAcertado = 3;
-			}
-			if (
-				resultadoFixtureByIDpronositco[0].resultado.home ===
-					Number(pronostico.pronostico.scoreHome) &&
-				resultadoFixtureByIDpronositco[0].resultado.away ===
-					Number(pronostico.pronostico.scoreAway)
-			) {
-				puntaje.resultadoAcertado = 3;
-			}
-			return { id: pronostico.id, puntaje };
-		}
-		return null;
-	};
 	const getForecastSent = (matchID) => {
 		const forecastFiltered = userData.prode.filter(
 			(el) => el.id === matchID,

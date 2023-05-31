@@ -12,8 +12,8 @@ import {
 	GET_TEAMS_EXITO,
 	GET_TEAMS_ERROR,
 } from "../types";
-import { helpHttp } from "../helpers/helpHttp";
-import config from "../config";
+import { helpHttp } from "../../helpers/helpHttp";
+import config from "../../config";
 
 const hoy = new Date().toISOString().split("T")[0];
 
