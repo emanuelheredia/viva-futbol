@@ -7,9 +7,13 @@ import {
 	UPDATE_USER_DB_ERROR,
 	GET_USER_DB,
 	GET_USER_DB_EXITO,
+	GET_USER_DB_ERROR,
 	UPDATE_USER_PRODE_DB,
 	UPDATE_USER_PRODE_DB_EXITO,
 	UPDATE_USER_PRODE_DB_ERROR,
+	GET_ALL_USERS_DB,
+	GET_ALL_USERS_DB_ERROR,
+	GET_ALL_USERS_DB_EXITO,
 } from "../types/index";
 
 const initialState = {
@@ -17,6 +21,7 @@ const initialState = {
 	loading: false,
 	error: false,
 	user: {},
+	allUsers: [],
 	data: {},
 };
 
@@ -26,6 +31,7 @@ export default function usersReducer(state = initialState, action) {
 		case UPDATE_USER_DB:
 		case GET_USER_DB:
 		case UPDATE_USER_PRODE_DB:
+		case GET_ALL_USERS_DB:
 			return {
 				...state,
 				error: false,
@@ -42,6 +48,13 @@ export default function usersReducer(state = initialState, action) {
 				error: false,
 				loading: false,
 				data: action.payload,
+			};
+		case GET_ALL_USERS_DB_EXITO:
+			return {
+				...state,
+				error: false,
+				loading: false,
+				allUsers: action.payload,
 			};
 		case UPDATE_USER_DB_EXITO:
 			return {
@@ -62,7 +75,14 @@ export default function usersReducer(state = initialState, action) {
 				msg: action.payload,
 				loading: false,
 			};
-		case GET_USER_DB_EXITO:
+		case GET_USER_DB_ERROR:
+			return {
+				...state,
+				error: true,
+				loading: false,
+				msg: action.payload,
+			};
+		case GET_ALL_USERS_DB_ERROR:
 			return {
 				...state,
 				error: true,

@@ -7,13 +7,17 @@ import {
 	UPDATE_USER_DB_ERROR,
 	GET_USER_DB,
 	GET_USER_DB_EXITO,
+	GET_USER_DB_ERROR,
 	GET_ALL_COUNTRIES_ERROR,
 	UPDATE_USER_PRODE_DB,
 	UPDATE_USER_PRODE_DB_EXITO,
 	UPDATE_USER_PRODE_DB_ERROR,
+	GET_ALL_USERS_DB,
+	GET_ALL_USERS_DB_ERROR,
+	GET_ALL_USERS_DB_EXITO,
 } from "../types/index";
 import { db, coleccion } from "../../firebase";
-import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc, getDoc, getDocs } from "firebase/firestore";
 
 export const addUserDB = (idUser, userEmail) => {
 	return async (dispatch) => {
@@ -70,6 +74,37 @@ const getUserExito = (payload) => ({
 	payload: payload,
 });
 const getUserError = (error) => ({
+	type: GET_USER_DB_ERROR,
+	payload: error,
+});
+
+export const getAllUsersDB = () => {
+	return async (dispatch) => {
+		dispatch(getAllUsers());
+		try {
+			await getDocs(coleccion).then((res) => {
+				const usersDB = res.docs;
+				const dataUsers = usersDB.map((el) => el.data());
+				const dateUsersWithID = dataUsers.map((el, index) => {
+					return { user: el, id: usersDB[index].id };
+				});
+				dispatch(getAllUsersExito(dateUsersWithID));
+			});
+		} catch (error) {
+			console.log(error);
+			dispatch(getAllUsersError("Error en la peticion de los usuarios"));
+		}
+	};
+};
+
+const getAllUsers = () => ({
+	type: GET_ALL_USERS_DB,
+});
+const getAllUsersExito = (payload) => ({
+	type: GET_ALL_USERS_DB_EXITO,
+	payload: payload,
+});
+const getAllUsersError = (error) => ({
 	type: GET_ALL_COUNTRIES_ERROR,
 	payload: error,
 });
