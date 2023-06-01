@@ -105,14 +105,13 @@ const getAllUsersExito = (payload) => ({
 	payload: payload,
 });
 const getAllUsersError = (error) => ({
-	type: GET_ALL_COUNTRIES_ERROR,
+	type: GET_ALL_USERS_DB_ERROR,
 	payload: error,
 });
 
 export const updateUserDB = (idUser, data) => {
 	const { name, lastName, nickName, favouriteTeam } = data;
 	return async (dispatch) => {
-		console.log("envio de datos");
 		dispatch(updateUser());
 		try {
 			await updateDoc(doc(db, "users", idUser), {
@@ -121,7 +120,6 @@ export const updateUserDB = (idUser, data) => {
 				nickName: nickName,
 				favouriteTeam: favouriteTeam,
 			});
-			console.log("actualice");
 			dispatch(updateUserExito());
 		} catch (error) {
 			console.log(error);
@@ -144,13 +142,11 @@ const updateUserError = (error) => ({
 export const updateUserProdeDB = (idUser, data) => {
 	const { prode } = data;
 	return async (dispatch) => {
-		console.log("envio de datos");
 		dispatch(updateUserProde());
 		try {
 			await updateDoc(doc(db, "users", idUser), {
 				prode: prode,
 			});
-			console.log("actualice");
 			dispatch(updateUserProdeExito());
 		} catch (error) {
 			console.log(error);

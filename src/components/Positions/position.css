@@ -1,0 +1,91 @@
+.positions-container-table{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem 0 1rem;
+}
+.positions-container-userInfo{
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    padding: .5rem 0 0 0;
+}
+.positions-container-userInfo>*{
+    padding: 10px;
+    text-align: center;
+    font-size: .8rem;
+    letter-spacing: 2px;
+    border-radius: 10px;
+    margin: 0 .3rem;
+    color: whitesmoke;
+    background: rgb(157,158,159);
+    background: linear-gradient(90deg, rgba(157,158,159,0.5522584033613445) 0%, rgba(0,0,0,0.804359243697479) 0%)
+}
+.positions-container-userInfo>:first-child{
+    width: 25%;
+    background: rgb(157,158,159);
+    background: linear-gradient(90deg, rgba(157,158,159,0.5522584033613445) 0%, rgba(3,144,0,0.7063200280112045) 0%);
+    color: whitesmoke;
+}
+.positions-container-userInfo>:nth-child(2){
+    width: 60%;
+}
+
+.positions-container-userInfo>:nth-child(3){
+    width: 25%;
+    background: rgb(157,158,159);
+    background: linear-gradient(90deg, rgba(157,158,159,0.5522584033613445) 0%, rgba(249,0,0,0.8407738095238095) 0%);
+}
+.positions-container-headerTable{
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    color: whitesmoke;
+    margin-bottom: 1rem;
+    
+}
+.positions-container-headerTable>*{
+    background: rgb(157,158,159);
+    background: linear-gradient(90deg, rgba(157,158,159,0.5522584033613445) 0%, rgba(0,14,255,0.804359243697479) 0%);
+    border-radius: 10px;
+    width: 40%;
+    margin: 0.3rem;
+    letter-spacing: 2px;
+    text-align: center;
+    padding: 10px;
+}
+.positions-container-headerTable>:first-child{
+    width: 25%;   
+}
+.positions-container-headerTable>:nth-child(3){
+    width: 25%;
+}
+.positions-container-headerTable>:nth-child(2){
+    width: 60%;
+}
+@media (min-width:780px){
+.positions-container-table{
+    width: 70%;
+}
+.positions-container-userInfo>*{
+    font-size: 1rem;
+}
+.positions-container-headerTable>*{
+    font-size: 1.2rem;
+}
+
+}
+@media (min-width:1230px){
+.positions-container-table{
+    width: 60%;
+}
+.positions-container-userInfo>*{
+    font-size: 1.2rem;
+}
+.positions-container-headerTable>*{
+    font-size: 1.4rem;
+}
+}
+
