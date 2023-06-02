@@ -68,7 +68,9 @@ const Positions = () => {
 	const orderTablePositions = (table) => {
 		return table.sort((x, y) => x.score + y.score);
 	};
-	console.log(allUsers);
+	const compareUserID = (userIDMap, userID) => {
+		if (userIDMap === userID) return "userPosition";
+	};
 	return (
 		<div
 			style={{
@@ -95,7 +97,10 @@ const Positions = () => {
 						tablaPosiciones.map((user, index) => (
 							<div
 								key={index}
-								className="positions-container-userInfo"
+								className={
+									"positions-container-userInfo " +
+									compareUserID(user.userID, userID)
+								}
 							>
 								<h4>{index + 1}</h4>
 								<h4>{user.nickname}</h4>

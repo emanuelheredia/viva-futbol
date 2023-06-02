@@ -11,6 +11,9 @@ import {
 	GET_TEAMS,
 	GET_TEAMS_EXITO,
 	GET_TEAMS_ERROR,
+	GET_CURRENT_FIXTURE,
+	GET_CURRENT_FIXTURE_EXITO,
+	GET_CURRENT_FIXTURE_ERROR,
 } from "../types";
 import { helpHttp } from "../../helpers/helpHttp";
 import config from "../../config";
@@ -139,7 +142,7 @@ export const getAllTeams = () => {
 					dispatch(getTeamsExito(res.response));
 				});
 		} catch (error) {
-			dispatch(getTeamsError("Error en la aextracción fixture prode"));
+			dispatch(getTeamsError("Error en la extracción fixture prode"));
 		}
 	};
 };
@@ -151,5 +154,43 @@ const getTeamsExito = (data) => ({
 });
 const getTeamsError = (msg) => ({
 	type: GET_TEAMS_ERROR,
+	payload: msg,
+});
+export const getCurrentFixture = () => {
+	return async (dispatch) => {
+		dispatch(getcurrentFixtureAction());
+		try {
+			helpHttp()
+				.get(
+					"https://" +
+						config.HOST1 +
+						"fixtures/rounds?season=2023&league=128&current=true",
+					{
+						headers: {
+							"x-rapidapi-host": config.HOST1,
+							"x-rapidapi-key": config.KEY1,
+						},
+					},
+				)
+				.then((res) => {
+					dispatch(getcurrentFixtureActionExito(res.response));
+				});
+		} catch (error) {
+			dispatch(
+				getcurrentFixtureActionError(
+					"Error en la extracción current fixture",
+				),
+			);
+		}
+	};
+};
+
+const getcurrentFixtureAction = () => ({ type: GET_CURRENT_FIXTURE });
+const getcurrentFixtureActionExito = (data) => ({
+	type: GET_CURRENT_FIXTURE_EXITO,
+	payload: data,
+});
+const getcurrentFixtureActionError = (msg) => ({
+	type: GET_CURRENT_FIXTURE_ERROR,
 	payload: msg,
 });

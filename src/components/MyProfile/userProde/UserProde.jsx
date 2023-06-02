@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from "react";
 import "./userProde.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getFixtureProde } from "../../../redux/actions/infoAPI.actions";
+import {
+	getCurrentFixture,
+	getFixtureProde,
+} from "../../../redux/actions/infoAPI.actions";
 import CardEnfrentamientosProde from "./CardEnfrentamientosProde";
 import { updateUserProdeDB } from "../../../redux/actions/user.actions";
 
 const UserProde = () => {
 	const fixture = useSelector((state) => state.data.fixtureProde);
 	const { userID } = useSelector((state) => state.auth.data);
+	const { currentFixture } = useSelector((state) => state.data);
 	const { data: userData } = useSelector((state) => state.users);
 	const [prode, setProde] = useState([]);
 	const [fixtureNotStarted, setFixtureNotStarted] = useState(true);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(getFixtureProde(2023, 128, "1st Phase - 16"));
+		dispatch(getCurrentFixture());
+	}, [userID]);
+	console.log(currentFixture);
+	useEffect(() => {
+		dispatch(getFixtureProde(2023, 128, currentFixture[0]));
 	}, []);
 	useEffect(() => {
 		if (userData.prode) {
@@ -41,7 +49,13 @@ const UserProde = () => {
 			<h2 className="userInfo-prode-title">Mi Pronóstico</h2>
 			<div className="container__allMatches">
 				{!fixtureNotStarted ? (
-					<h4>
+					<h4
+						style={{
+							margin: "2rem",
+							textAlign: "center",
+							color: "red",
+						}}
+					>
 						No se podrán realizar mas predicciones debido a que la
 						fecha inició
 					</h4>

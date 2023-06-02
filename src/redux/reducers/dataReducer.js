@@ -11,6 +11,9 @@ import {
 	GET_TEAMS,
 	GET_TEAMS_EXITO,
 	GET_TEAMS_ERROR,
+	GET_CURRENT_FIXTURE,
+	GET_CURRENT_FIXTURE_EXITO,
+	GET_CURRENT_FIXTURE_ERROR,
 } from "../types/index";
 
 const initialState = {
@@ -18,6 +21,7 @@ const initialState = {
 	fixture: [],
 	fixtureProde: [],
 	teams: [],
+	currentFixture: "",
 	msg: "",
 	loading: false,
 	error: false,
@@ -29,6 +33,7 @@ export default function dataReducer(state = initialState, action) {
 		case GET_ALL_MATCHS:
 		case GET_FIXTURE_PRODE:
 		case GET_TEAMS:
+		case GET_CURRENT_FIXTURE:
 			return {
 				...state,
 				loading: true,
@@ -57,6 +62,12 @@ export default function dataReducer(state = initialState, action) {
 				loading: false,
 				fixtureProde: action.payload,
 			};
+		case GET_CURRENT_FIXTURE_EXITO:
+			return {
+				...state,
+				loading: false,
+				currentFixture: action.payload,
+			};
 		case GET_ALL_COUNTRIES_ERROR:
 			return {
 				...state,
@@ -84,6 +95,12 @@ export default function dataReducer(state = initialState, action) {
 				loading: false,
 				error: true,
 				msg: action.payload,
+			};
+		case GET_CURRENT_FIXTURE_EXITO:
+			return {
+				...state,
+				loading: false,
+				error: true,
 			};
 		default:
 			return state;

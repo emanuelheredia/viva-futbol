@@ -23,6 +23,13 @@
     background: rgb(157,158,159);
     background: linear-gradient(90deg, rgba(157,158,159,0.5522584033613445) 0%, rgba(0,0,0,0.804359243697479) 0%)
 }
+.userPosition{
+    margin-top: 5px;
+    padding: 10px 5px 10px 5px;
+
+    border-radius: 10px;
+background: rgb(157,158,159);
+background: linear-gradient(90deg, rgba(157,158,159,0.5522584033613445) 0%, rgba(133,133,133,0.7595413165266106) 0%);}
 .positions-container-userInfo>:first-child{
     width: 25%;
     background: rgb(157,158,159);
