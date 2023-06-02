@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-	getCountries,
-	getMatchsDays,
-} from "../../redux/actions/infoAPI.actions";
+import { getMatchsDays } from "../../redux/actions/infoAPI.actions";
 import "./matchDays.css";
 import CardEnfrentamientos from "./CardEnfrentamientos/CardEnfrentamientos";
 
@@ -22,9 +19,7 @@ const MatchsDay = () => {
 	const dispatch = useDispatch();
 	const data = useSelector((state) => state.data);
 	const [matchs, setMatchs] = useState(null);
-
 	const [loading, setLoading] = useState(false);
-
 	useEffect(() => {
 		dispatch(getMatchsDays());
 	}, []);

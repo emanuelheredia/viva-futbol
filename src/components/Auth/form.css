@@ -11,7 +11,7 @@
     padding: 2rem;
     flex-direction: column;
     justify-content: center;
-    width: 250px;
+    width: 350px;
     height: 400px;
     gap: 1rem;
     align-items: center;
@@ -71,7 +71,7 @@
 }
 @media (min-width:780px){
 .form-container{
-    width: 350px;
+    width: 450px;
     gap: 1rem;
 }
 }
