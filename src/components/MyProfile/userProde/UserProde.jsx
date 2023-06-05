@@ -23,7 +23,7 @@ const UserProde = () => {
 	console.log(currentFixture);
 	useEffect(() => {
 		dispatch(getFixtureProde(2023, 128, currentFixture[0]));
-	}, []);
+	}, [currentFixture]);
 	useEffect(() => {
 		if (userData.prode) {
 			setProde(userData.prode);
@@ -57,7 +57,7 @@ const UserProde = () => {
 						}}
 					>
 						No se podrán realizar mas predicciones debido a que la
-						fecha inició
+						fecha inició o aún no se cargó el nuevo prode
 					</h4>
 				) : (
 					fixture?.map((el, index) => (

@@ -30,6 +30,9 @@ const Registrer = () => {
 				navigate("/");
 			}, [2000]);
 		}
+		setTimeout(() => {
+			setResponse(null);
+		}, [3000]);
 	}, [auth]);
 
 	useEffect(() => {

@@ -46,6 +46,7 @@
 }
 .form-boton{
     background-color: rgba(59,89,152,1);
+    margin-top: 1rem;
     padding: .5rem;
     height: 3rem;
     width: 100%;
@@ -68,6 +69,12 @@
     z-index: -1;
     opacity: .2;
     background-color: blue;
+}
+.form-linkToRegistrer{
+    cursor: pointer;
+}
+.form-linkToRegistrer:hover{
+    font-weight: bolder;
 }
 @media (min-width:780px){
 .form-container{

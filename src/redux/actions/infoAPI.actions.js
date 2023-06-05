@@ -83,7 +83,7 @@ const getAllMatchsError = (msg) => ({
 	payload: msg,
 });
 
-export const getFixtureProde = (season, league, ronda = "1st Phase - 16") => {
+export const getFixtureProde = (season, league, ronda) => {
 	return async (dispatch) => {
 		dispatch(getFixture());
 		try {

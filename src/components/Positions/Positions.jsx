@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsersDB } from "../../redux/actions/user.actions";
-import { getFixtureProde } from "../../redux/actions/infoAPI.actions";
+import {
+	getFixtureProde,
+	getCurrentFixture,
+} from "../../redux/actions/infoAPI.actions";
 import {
 	getResultadosFromFixture,
 	getUserScore,
@@ -12,11 +15,15 @@ const Positions = () => {
 	const { userID } = useSelector((state) => state.auth.data);
 	const { allUsers } = useSelector((state) => state.users);
 	const fixture = useSelector((state) => state.data.fixtureProde);
+	const { currentFixture } = useSelector((state) => state.data);
 	const [fechaFinalizada, setFechaFinalizada] = useState(true);
 	const [resultadosFecha, setResultadosFecha] = useState([]);
 	const [tablaPosiciones, setTablaPosiciones] = useState([]);
 
 	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(getCurrentFixture());
+	}, [userID]);
 
 	useEffect(() => {
 		if (allUsers.length === 0) {
@@ -25,12 +32,14 @@ const Positions = () => {
 	}, [allUsers]);
 	useEffect(() => {
 		if (fixture.length === 0) {
-			dispatch(getFixtureProde(2023, 128, "1st Phase - 16"));
+			dispatch(getFixtureProde(2023, 128, currentFixture[0]));
 		}
-	}, []);
+	}, [currentFixture]);
 	useEffect(() => {
 		const matchesFisihed = fixture.map(
-			(el) => el.fixture.status.long === "Match Finished",
+			(el) =>
+				el.fixture.status.long === "Match Finished" ||
+				el.fixture.status.long === "Match Abandoned",
 		);
 		if (matchesFisihed.some((el) => el === false)) {
 			setFechaFinalizada(false);

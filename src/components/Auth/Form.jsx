@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import "./form.css";
+import { useNavigate } from "react-router-dom";
 const initialState = {
 	email: "",
 	password: "",
@@ -8,7 +9,7 @@ const initialState = {
 const Form = ({ response, setResponse, handleSubmit, register }) => {
 	const auth = useSelector((state) => state.auth);
 	const [user, setUser] = useState(initialState);
-
+	const navigate = useNavigate();
 	const handleSubmitForm = (e) => {
 		e.preventDefault();
 		handleSubmit(user);
@@ -21,6 +22,12 @@ const Form = ({ response, setResponse, handleSubmit, register }) => {
 			...user,
 			[e.target.name]: e.target.value,
 		});
+	};
+	const goToRegistrer = () => {
+		navigate("/registrer");
+	};
+	const goToLogin = () => {
+		navigate("/login");
 	};
 	return (
 		<form className="form" onSubmit={handleSubmitForm}>
@@ -55,6 +62,16 @@ const Form = ({ response, setResponse, handleSubmit, register }) => {
 				<button className="form-boton">
 					{register ? "Registrar" : "Loguear"}
 				</button>
+				{!register && (
+					<p onClick={goToRegistrer} className="form-linkToRegistrer">
+						Si aún no estás registrado click acá
+					</p>
+				)}
+				{register && (
+					<p onClick={goToLogin} className="form-linkToRegistrer">
+						Para loguearte click acá
+					</p>
+				)}
 				{auth.loading && <p>Procesando..</p>}
 				{response && (
 					<p

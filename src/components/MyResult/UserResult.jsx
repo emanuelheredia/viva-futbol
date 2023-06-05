@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getFixtureProde } from "../../redux/actions/infoAPI.actions";
+import {
+	getFixtureProde,
+	getCurrentFixture,
+} from "../../redux/actions/infoAPI.actions";
 import { getUserDB } from "../../redux/actions/user.actions";
 import {
 	getResultadosFromFixture,
@@ -13,6 +16,7 @@ const UserResult = () => {
 	const dispatch = useDispatch();
 	const fixture = useSelector((state) => state.data.fixtureProde);
 	const { userID } = useSelector((state) => state.auth.data);
+	const { currentFixture } = useSelector((state) => state.data);
 	const userData = useSelector((state) => state.users.data);
 	const [fechaFinalizada, setFechaFinalizada] = useState(true);
 	const [resultadosFecha, setResultadosFecha] = useState([]);
@@ -20,16 +24,24 @@ const UserResult = () => {
 	const [totalUSerResult, setTotalUSerResult] = useState(0);
 
 	useEffect(() => {
-		if (fixture.length === 0) {
-			dispatch(getFixtureProde(2023, 128, "1st Phase - 16"));
+		if (!currentFixture[0]) {
+			dispatch(getCurrentFixture());
 		}
-	}, []);
+	}, [userID]);
+
+	useEffect(() => {
+		if (fixture.length === 0) {
+			dispatch(getFixtureProde(2023, 128, currentFixture[0]));
+		}
+	}, [currentFixture]);
 	useEffect(() => {
 		dispatch(getUserDB(userID));
 	}, []);
 	useEffect(() => {
 		const matchesFisihed = fixture.map(
-			(el) => el.fixture.status.long === "Match Finished",
+			(el) =>
+				el.fixture.status.long === "Match Finished" ||
+				el.fixture.status.long === "Match Abandoned",
 		);
 		if (matchesFisihed.some((el) => el === false)) {
 			setFechaFinalizada(false);

@@ -27,6 +27,9 @@ const Login = () => {
 		if (auth.login) {
 			navigate("/");
 		}
+		setTimeout(() => {
+			setResponse(null);
+		}, [3000]);
 	}, [auth]);
 
 	return (
