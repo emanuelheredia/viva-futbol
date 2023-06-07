@@ -32,7 +32,7 @@ const Positions = () => {
 	}, [allUsers]);
 	useEffect(() => {
 		if (fixture.length === 0) {
-			dispatch(getFixtureProde(2023, 128, currentFixture[0]));
+			dispatch(getFixtureProde(2023, 128, "1st Phase - 19"));
 		}
 	}, [currentFixture]);
 	useEffect(() => {

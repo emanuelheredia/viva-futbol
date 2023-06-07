@@ -15,20 +15,35 @@ const UserProde = () => {
 	const { data: userData } = useSelector((state) => state.users);
 	const [prode, setProde] = useState([]);
 	const [fixtureNotStarted, setFixtureNotStarted] = useState(true);
+	const [prodeDBFinished, setProdeDBFinished] = useState(false);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		dispatch(getCurrentFixture());
 	}, [userID]);
-	console.log(currentFixture);
 	useEffect(() => {
-		dispatch(getFixtureProde(2023, 128, currentFixture[0]));
+		if (userData.prode && fixture) {
+			setProdeDBFinished(
+				userData.prode
+					.map((elem) =>
+						fixture.map((el) => el.fixture.id).includes(elem.id),
+					)
+					.includes(true),
+			);
+		}
+	}, [userData.prode, fixture]);
+
+	useEffect(() => {
+		if (currentFixture?.length > 0) {
+			dispatch(getFixtureProde(2023, 128, "1st Phase - 20"));
+		}
 	}, [currentFixture]);
 	useEffect(() => {
-		if (userData.prode) {
+		if (userData.prode && prodeDBFinished) {
+			console.log(prodeDBFinished);
 			setProde(userData.prode);
 		}
-	}, [userData]);
+	}, [userData.prode, prodeDBFinished]);
 	/* 	useEffect(() => {
 		const matchesNotStarted = fixture.map(
 			(el) => el.fixture.status.long === "Not Started",
