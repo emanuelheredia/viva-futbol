@@ -1,0 +1,6 @@
+.userCountdown-container{
+    margin-bottom: 1rem;
+    padding: .5rem;
+    color: whitesmoke;
+background: rgb(255,0,0);
+background: linear-gradient(90deg, rgba(255,0,0,0.14329481792717091) 0%, rgba(241,0,0,0.6615021008403361) 48%, rgba(255,0,0,0.17690826330532217) 100%);}

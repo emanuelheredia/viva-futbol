@@ -7,6 +7,7 @@ import {
 } from "../../../redux/actions/infoAPI.actions";
 import CardEnfrentamientosProde from "./CardEnfrentamientosProde";
 import { updateUserProdeDB } from "../../../redux/actions/user.actions";
+import UserCountDown from "./UserCountDown";
 
 const UserProde = () => {
 	const fixture = useSelector((state) => state.data.fixtureProde);
@@ -17,6 +18,8 @@ const UserProde = () => {
 	const [fixtureNotStarted, setFixtureNotStarted] = useState(true);
 	const [prodeDBFinished, setProdeDBFinished] = useState(false);
 	const dispatch = useDispatch();
+
+	const firstMatchDate = fixture[0]?.fixture.date;
 
 	useEffect(() => {
 		dispatch(getCurrentFixture());
@@ -32,10 +35,10 @@ const UserProde = () => {
 			);
 		}
 	}, [userData.prode, fixture]);
-
+	console.log(prode);
 	useEffect(() => {
 		if (currentFixture?.length > 0) {
-			dispatch(getFixtureProde(2023, 128, "1st Phase - 20"));
+			dispatch(getFixtureProde(2023, 128, currentFixture));
 		}
 	}, [currentFixture]);
 	useEffect(() => {
@@ -62,6 +65,9 @@ const UserProde = () => {
 	return (
 		<div>
 			<h2 className="userInfo-prode-title">Mi Pronóstico</h2>
+			{firstMatchDate && (
+				<UserCountDown firstMatchDate={firstMatchDate} />
+			)}
 			<div className="container__allMatches">
 				{!fixtureNotStarted ? (
 					<h4
