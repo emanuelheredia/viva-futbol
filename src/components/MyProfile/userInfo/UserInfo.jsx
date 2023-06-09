@@ -6,6 +6,7 @@ import { updateUserDB } from "../../../redux/actions/user.actions";
 import { getAllTeams } from "../../../redux/actions/infoAPI.actions";
 import checkIcon from "../../../assets/check.png";
 import editIcon from "../../../assets/edit.png";
+import swal from "sweetalert";
 
 import Select from "react-select";
 
@@ -29,6 +30,8 @@ const UserInfo = ({ userID }) => {
 	const [edit, setEdit] = useState(initialUserEdit);
 	const [teamsName, setTeamsName] = useState([]);
 	const [showSaveBTN, setShowSaveBTN] = useState(false);
+	const [showAlertSumbit, setShowAlertSumbit] = useState(false);
+
 	useEffect(() => {
 		dispatch(getUserDB(userID));
 		dispatch(getAllTeams());
@@ -75,6 +78,9 @@ const UserInfo = ({ userID }) => {
 		e.preventDefault();
 		dispatch(updateUserDB(userID, user));
 		dispatch(getUserDB(userID));
+		if (users.error === false) {
+			setShowAlertSumbit(true);
+		}
 	};
 	const handleEdit = (e) => {
 		e.preventDefault();
@@ -83,6 +89,19 @@ const UserInfo = ({ userID }) => {
 	const handleChangeSelect = (e) => {
 		setUser({ ...user, favouriteTeam: e });
 	};
+	const showAlert = () => {
+		swal({
+			title: "Cambio Exitoso",
+			text: "Las modificaciones se almacenaron con exito",
+			icon: "success",
+			button: "Aceptar",
+		}).then((respuesta) => {
+			if (respuesta) {
+				setShowAlertSumbit(false);
+			}
+		});
+	};
+
 	return (
 		<div
 			style={{
@@ -229,6 +248,7 @@ const UserInfo = ({ userID }) => {
 					</button>
 				)}
 			</form>
+			{showAlertSumbit && showAlert()}
 		</div>
 	);
 };

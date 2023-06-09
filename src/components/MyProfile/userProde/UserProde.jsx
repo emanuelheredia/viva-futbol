@@ -8,15 +8,18 @@ import {
 import CardEnfrentamientosProde from "./CardEnfrentamientosProde";
 import { updateUserProdeDB } from "../../../redux/actions/user.actions";
 import UserCountDown from "./UserCountDown";
+import swal from "sweetalert";
 
 const UserProde = () => {
 	const fixture = useSelector((state) => state.data.fixtureProde);
 	const { userID } = useSelector((state) => state.auth.data);
 	const { currentFixture } = useSelector((state) => state.data);
 	const { data: userData } = useSelector((state) => state.users);
+	const { users } = useSelector((state) => state);
 	const [prode, setProde] = useState([]);
 	const [fixtureNotStarted, setFixtureNotStarted] = useState(true);
 	const [prodeDBFinished, setProdeDBFinished] = useState(false);
+	const [showAlertSumbit, setShowAlertSumbit] = useState(false);
 	const dispatch = useDispatch();
 
 	const firstMatchDate = fixture[0]?.fixture.date;
@@ -35,7 +38,7 @@ const UserProde = () => {
 			);
 		}
 	}, [userData.prode, fixture]);
-	console.log(prode);
+	console.log(users.error);
 	useEffect(() => {
 		if (currentFixture?.length > 0) {
 			dispatch(getFixtureProde(2023, 128, currentFixture));
@@ -61,6 +64,22 @@ const UserProde = () => {
 		if (prode.length !== 0) {
 			dispatch(updateUserProdeDB(userID, { prode: prode }));
 		}
+		if (users.error === false) {
+			setShowAlertSumbit(true);
+		}
+	};
+	console.log(showAlertSumbit);
+	const showAlert = () => {
+		swal({
+			title: "Cambio Exitoso",
+			text: "Los pronósticos se almacenaron con exito",
+			icon: "success",
+			button: "Aceptar",
+		}).then((respuesta) => {
+			if (respuesta) {
+				setShowAlertSumbit(false);
+			}
+		});
 	};
 	return (
 		<div>
@@ -108,6 +127,7 @@ const UserProde = () => {
 					</div>
 				)}
 			</div>
+			{showAlertSumbit && showAlert()}
 		</div>
 	);
 };

@@ -29,6 +29,7 @@
 .header-linksContainer>a:hover{
     cursor: pointer;
     color: blue;
+    transition-delay: .1s;
 }
 @media (min-width:780px){
     .header-container{

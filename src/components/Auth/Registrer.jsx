@@ -4,35 +4,38 @@ import { signUp } from "../../redux/actions/auth.actions";
 import { useNavigate } from "react-router-dom";
 import Form from "./Form";
 import { addUserDB } from "../../redux/actions/user.actions";
+import swal from "sweetalert";
 
 const Registrer = () => {
 	const dispatch = useDispatch();
 	const [response, setResponse] = useState(null);
 	const navigate = useNavigate();
 	const auth = useSelector((state) => state.auth);
+	const [showAlertSumbit, setShowAlertSumbit] = useState(false);
 	const handleSubmit = (user) => {
-		setResponse(null);
 		dispatch(signUp(user));
 	};
 	useEffect(() => {
 		if (auth.error && auth.msg?.includes("in-use")) {
-			setResponse("El email ya está en uso");
+			showAlert("Email Incorrecto", "El email ya está en uso", "warning");
 		}
 		if (auth.error && auth.msg?.includes("invalid")) {
-			setResponse("El email ingresado no es válido");
+			showAlert("Email Incorrecto", "El email no es válido", "warning");
 		}
 		if (auth.error && auth.msg?.includes("weak")) {
-			setResponse("La contraseña debe ser mayor a 5 dígitos");
+			showAlert(
+				"Password Incorrecto",
+				"EL password debe contener más de 6 digitos",
+				"warning",
+			);
 		}
 		if (auth.login) {
-			setResponse("Registro Exitoso");
-			setTimeout(() => {
-				navigate("/");
-			}, [2000]);
+			showAlert(
+				"Exitoso",
+				"El pre-registro fue exitos, aguarda la autorización para acceder a todas las funcionalidades",
+				"success",
+			);
 		}
-		setTimeout(() => {
-			setResponse(null);
-		}, [3000]);
 	}, [auth]);
 
 	useEffect(() => {
@@ -40,14 +43,22 @@ const Registrer = () => {
 			dispatch(addUserDB(auth.data.userID, auth.data.email));
 		}
 	}, [auth]);
-
+	const showAlert = (title, text, icon) => {
+		swal({
+			title: title,
+			text: text,
+			icon: icon,
+			button: "Aceptar",
+		}).then((respuesta) => {
+			if (respuesta) {
+				setShowAlertSumbit(false);
+			}
+		});
+	};
 	return (
-		<Form
-			response={response}
-			handleSubmit={handleSubmit}
-			register={true}
-			setResponse={setResponse}
-		/>
+		<div>
+			<Form handleSubmit={handleSubmit} register={true} />
+		</div>
 	);
 };
 

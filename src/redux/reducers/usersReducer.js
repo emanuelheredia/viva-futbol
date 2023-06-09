@@ -19,7 +19,7 @@ import {
 const initialState = {
 	msg: {},
 	loading: false,
-	error: false,
+	error: null,
 	user: {},
 	allUsers: [],
 	data: {},
@@ -34,7 +34,7 @@ export default function usersReducer(state = initialState, action) {
 		case GET_ALL_USERS_DB:
 			return {
 				...state,
-				error: false,
+				error: null,
 			};
 		case ADD_USER_DB_EXITO:
 			return {

@@ -24,14 +24,14 @@ export default function authReducer(state = initialState, action) {
 		case SIGN_IN_USER:
 			return {
 				...state,
-				error: false,
+				error: null,
 				msg: {},
 				loading: true,
 			};
 		case SIGN_OUT_USER:
 			return {
 				...state,
-				error: false,
+				error: null,
 				msg: {},
 				loading: true,
 				login: false,

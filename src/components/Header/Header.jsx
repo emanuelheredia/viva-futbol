@@ -33,7 +33,7 @@ const Header = () => {
 				<a onClick={goToProfile}>Mi Perfil</a>
 				<a onClick={goToResult}>Mis Resultados</a>
 				<a onClick={goToPositions}>Posiciones</a>
-				<a onClick={handleLogOut}>Log out</a>
+				<a onClick={handleLogOut}>Log Out</a>
 			</nav>
 		</div>
 	);
