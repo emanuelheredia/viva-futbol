@@ -10,4 +10,40 @@
     justify-content: center;
     align-items: center;
     z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem 0 2rem;
+}
+.header-logo{
+    width: 50px;
+    border-radius: 10px;
+}
+
+.header-linksContainer{
+    display: flex;
+    gap: .8rem;
+    font-weight: bolder;
+    color: gainsboro;
+    font-size: .9rem;
+}
+.header-linksContainer>a:hover{
+    cursor: pointer;
+    color: blue;
+}
+@media (min-width:780px){
+    .header-container{
+        padding-right: 3rem;
+    }
+    .header-linksContainer{
+        gap: 2rem;
+        font-size: 1.1rem;
+    }
+}
+@media (min-width:1230px){
+    .header-container{
+        padding-right: 3rem;
+    }
+    .header-linksContainer{
+        gap: 4rem;
+    }
 }
