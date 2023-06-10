@@ -9,45 +9,46 @@ import swal from "sweetalert";
 const Login = () => {
 	const dispatch = useDispatch();
 	const [showAlertSumbit, setShowAlertSumbit] = useState(false);
+	const [msgSwap, setMsgSwap] = useState({});
 	const { users } = useSelector((state) => state);
 
 	const navigate = useNavigate();
 	const auth = useSelector((state) => state.auth);
 
 	const handleSubmit = (user) => {
-		dispatch(signOutLogin());
 		dispatch(signIn(user));
+		setTimeout(() => {
+			setShowAlertSumbit(true);
+		}, 500);
 	};
 	useEffect(() => {
-		console.log("entre");
 		if (auth.error && auth.msg?.includes("wrong")) {
-			showAlert(
-				"Password Incorrecto",
-				"El password que ingresaste no es válido",
-				"warning",
-			);
+			setMsgSwap({
+				title: "Password Incorrecto",
+				text: "El password que ingresaste no es válido",
+				icon: "warning",
+			});
 		}
 		if (auth.error && auth.msg?.includes("invalid")) {
-			showAlert(
-				"Email Incorrecto",
-				"El email que ingresaste no es válido",
-				"warning",
-			);
+			setMsgSwap({
+				title: "Email Incorrecto",
+				text: "El email que ingresaste no es válido",
+				icon: "warning",
+			});
 		}
 		if (auth.error && auth.msg?.includes("found")) {
-			showAlert(
-				"Email Incorrecto",
-				"El email que ingresaste no está registrado",
-				"warning",
-			);
+			setMsgSwap({
+				title: "Email Incorrecto",
+				text: "El email que ingresaste no está registrado",
+				icon: "warning",
+			});
 		}
 		if (auth.login) {
 			navigate("/");
 		}
-	}, [auth.error]);
+	}, [auth]);
 	console.log(auth);
-	const showAlert = (title, text, icon) => {
-		setShowAlertSumbit(true);
+	const showAlert = ({ title, text, icon }) => {
 		swal({
 			title: title,
 			text: text,
@@ -56,6 +57,7 @@ const Login = () => {
 		}).then((respuesta) => {
 			if (respuesta) {
 				setShowAlertSumbit(false);
+				setMsgSwap({});
 			}
 		});
 	};
@@ -63,6 +65,7 @@ const Login = () => {
 	return (
 		<div>
 			<Form register={false} handleSubmit={handleSubmit} />
+			{showAlertSumbit && showAlert(msgSwap)}
 		</div>
 	);
 };

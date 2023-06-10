@@ -25,6 +25,7 @@ export const signUp = (newUser) => {
 				auth,
 				email,
 				password,
+				{ CuentaConfirmada: false },
 			);
 			dispatch(
 				signUpUserExito({

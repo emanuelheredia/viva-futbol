@@ -15,6 +15,7 @@ const initialState = {
 	loading: false,
 	error: false,
 	login: false,
+	preRegistro: false,
 	data: [],
 };
 
@@ -38,6 +39,14 @@ export default function authReducer(state = initialState, action) {
 				data: [],
 			};
 		case SIGN_UP_USER_EXITO:
+			return {
+				...state,
+				loading: false,
+				preRegistro: true,
+				data: action.payload,
+				error: false,
+				msg: "",
+			};
 		case SIGN_IN_USER_EXITO:
 			return {
 				...state,
@@ -53,6 +62,7 @@ export default function authReducer(state = initialState, action) {
 				error: false,
 				msg: {},
 				loading: false,
+				preRegistro: false,
 				login: false,
 				data: [],
 			};
