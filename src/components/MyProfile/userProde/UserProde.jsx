@@ -81,6 +81,7 @@ const UserProde = () => {
 			}
 		});
 	};
+	console.log(users);
 	return (
 		<div>
 			<h2 className="userInfo-prode-title">Mi Pronóstico</h2>

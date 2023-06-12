@@ -19,11 +19,18 @@ const Positions = () => {
 	const [fechaFinalizada, setFechaFinalizada] = useState(true);
 	const [resultadosFecha, setResultadosFecha] = useState([]);
 	const [tablaPosiciones, setTablaPosiciones] = useState([]);
+	const { users } = useSelector((state) => state);
+	const [accountConfirm, setAccountConfirm] = useState(false);
 
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getCurrentFixture());
 	}, [userID]);
+	useEffect(() => {
+		if (users.data && users.data.accountConfirm) {
+			setAccountConfirm(true);
+		}
+	}, [users.data]);
 
 	useEffect(() => {
 		if (allUsers.length === 0) {
@@ -57,6 +64,7 @@ const Positions = () => {
 	}, [fixture, fechaFinalizada]);
 	useEffect(() => {
 		if (allUsers.length > 0 && fechaFinalizada) {
+			console.log(allUsers);
 			let allResultsUsers = [];
 			allUsers.map((user) => {
 				let { totalUserScore } = getUserScore(
@@ -80,7 +88,7 @@ const Positions = () => {
 	const compareUserID = (userIDMap, userID) => {
 		if (userIDMap === userID) return "userPosition";
 	};
-	return (
+	return accountConfirm ? (
 		<div
 			style={{
 				marginTop: "5rem",
@@ -119,6 +127,11 @@ const Positions = () => {
 				</div>
 			)}
 		</div>
+	) : (
+		<h2 className="title-fixture-in-procces" style={{ marginTop: "5rem" }}>
+			Todavía no podrás acceder a esta información debido a que tu cuenta
+			aun no fue confirmada
+		</h2>
 	);
 };
 

@@ -29,12 +29,14 @@ export const addUserDB = (idUser, userEmail) => {
 				lastName: "sin apellido",
 				nickName: "sin nick name",
 				favouriteTeam: "ninguno",
+				accountConfirm: false,
+				prode: [],
 			});
 			dispatch(addUserExito());
 		} catch (error) {
 			dispatch(
 				addUserError(
-					"Error en la creación del perfgil inicial del ususario",
+					"Error en la creación del perfil inicial del ususario",
 				),
 			);
 			console.log(error);

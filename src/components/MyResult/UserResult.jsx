@@ -22,12 +22,19 @@ const UserResult = () => {
 	const [resultadosFecha, setResultadosFecha] = useState([]);
 	const [userResults, setUserResults] = useState([]);
 	const [totalUSerResult, setTotalUSerResult] = useState(0);
+	const [accountConfirm, setAccountConfirm] = useState(false);
+	const { users } = useSelector((state) => state);
 
 	useEffect(() => {
 		if (!currentFixture[0]) {
 			dispatch(getCurrentFixture());
 		}
 	}, [userID]);
+	useEffect(() => {
+		if (users.data && users.data.accountConfirm) {
+			setAccountConfirm(true);
+		}
+	}, [users.data]);
 
 	useEffect(() => {
 		if (fixture.length === 0) {
@@ -99,7 +106,7 @@ const UserResult = () => {
 			return "forecast-wrong";
 		}
 	};
-	return (
+	return accountConfirm ? (
 		<div className="container-all-results">
 			{!fechaFinalizada && (
 				<h2 className="title-fixture-in-procces">
@@ -162,6 +169,11 @@ const UserResult = () => {
 					</div>
 				))}
 		</div>
+	) : (
+		<h2 className="title-fixture-in-procces" style={{ marginTop: "5rem" }}>
+			Todavía no podrás acceder a esta información debido a que tu cuenta
+			aun no fue confirmada
+		</h2>
 	);
 };
 

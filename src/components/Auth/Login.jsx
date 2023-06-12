@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../../redux/actions/auth.actions";
 import { useNavigate } from "react-router-dom";
-import { signOutLogin } from "../../redux/actions/auth.actions";
 import Form from "./Form";
 import swal from "sweetalert";
 
@@ -19,8 +18,9 @@ const Login = () => {
 		dispatch(signIn(user));
 		setTimeout(() => {
 			setShowAlertSumbit(true);
-		}, 500);
+		}, 1000);
 	};
+
 	useEffect(() => {
 		if (auth.error && auth.msg?.includes("wrong")) {
 			setMsgSwap({
@@ -43,11 +43,17 @@ const Login = () => {
 				icon: "warning",
 			});
 		}
+		if (auth.error && auth.msg?.includes("temporarily disabled")) {
+			setMsgSwap({
+				title: "Login Bloqueado",
+				text: "Ingresaste varias veces un password incorrecto. Contactate con el administrador para pedir el desbloqueo",
+				icon: "warning",
+			});
+		}
 		if (auth.login) {
 			navigate("/");
 		}
 	}, [auth]);
-	console.log(auth);
 	const showAlert = ({ title, text, icon }) => {
 		swal({
 			title: title,

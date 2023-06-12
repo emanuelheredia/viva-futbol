@@ -10,6 +10,7 @@ export const getResultadosFromFixture = (fixture) => {
 	return resultados;
 };
 export const getUserScore = (prode, fixtureResult) => {
+	console.log(fixtureResult);
 	let resultadoTotal = 0;
 	let userResult = prode.map((el) => getResultByProde(el, fixtureResult));
 	userResult.map((el) => {

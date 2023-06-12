@@ -16,7 +16,7 @@ const Registrer = () => {
 		dispatch(signUp(user));
 		setTimeout(() => {
 			setShowAlertSumbit(true);
-		}, 800);
+		}, 1000);
 	};
 	useEffect(() => {
 		if (auth.error && auth.msg?.includes("in-use")) {
@@ -43,7 +43,7 @@ const Registrer = () => {
 		if (auth.preRegistro) {
 			setMsgSwap({
 				title: "Exitoso",
-				text: "El pre-registro fue exitoso, aguarda la autorización para acceder a todas las funcionalidades",
+				text: "El pre-registro fue exitoso, aguarda la autorización para acceder a todas las funcionalidades. Te redireccionaremos al login",
 				icon: "success",
 			});
 		}
