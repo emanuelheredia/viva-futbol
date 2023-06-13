@@ -12,10 +12,13 @@ const Registrer = () => {
 	const auth = useSelector((state) => state.auth);
 	const [showAlertSumbit, setShowAlertSumbit] = useState(false);
 	const [msgSwap, setMsgSwap] = useState({});
+	const [showSpinner, setShowSpinner] = useState(false);
 	const handleSubmit = (user) => {
 		dispatch(signUp(user));
+		setShowSpinner(true);
 		setTimeout(() => {
 			setShowAlertSumbit(true);
+			setShowSpinner(false);
 		}, 1000);
 	};
 	useEffect(() => {
@@ -73,7 +76,11 @@ const Registrer = () => {
 	};
 	return (
 		<div>
-			<Form handleSubmit={handleSubmit} register={true} />
+			<Form
+				handleSubmit={handleSubmit}
+				register={true}
+				showSpinner={showSpinner}
+			/>
 			{showAlertSumbit && showAlert(msgSwap)}
 		</div>
 	);

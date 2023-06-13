@@ -7,7 +7,6 @@ import { getAllTeams } from "../../../redux/actions/infoAPI.actions";
 import checkIcon from "../../../assets/check.png";
 import editIcon from "../../../assets/edit.png";
 import swal from "sweetalert";
-
 import Select from "react-select";
 
 const initialUser = {
@@ -33,7 +32,6 @@ const UserInfo = ({ userID }) => {
 	const [showAlertSumbit, setShowAlertSumbit] = useState(false);
 
 	useEffect(() => {
-		dispatch(getUserDB(userID));
 		dispatch(getAllTeams());
 	}, []);
 	useEffect(() => {

@@ -26,7 +26,7 @@ const UserResult = () => {
 	const { users } = useSelector((state) => state);
 
 	useEffect(() => {
-		if (!currentFixture[0]) {
+		if (currentFixture && !currentFixture[0]) {
 			dispatch(getCurrentFixture());
 		}
 	}, [userID]);
@@ -35,7 +35,7 @@ const UserResult = () => {
 			setAccountConfirm(true);
 		}
 	}, [users.data]);
-
+	console.log(currentFixture);
 	useEffect(() => {
 		if (fixture.length === 0) {
 			dispatch(getFixtureProde(2023, 128, currentFixture[0]));

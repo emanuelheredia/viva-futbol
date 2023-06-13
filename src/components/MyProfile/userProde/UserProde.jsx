@@ -9,6 +9,7 @@ import CardEnfrentamientosProde from "./CardEnfrentamientosProde";
 import { updateUserProdeDB } from "../../../redux/actions/user.actions";
 import UserCountDown from "./UserCountDown";
 import swal from "sweetalert";
+import { Spinner } from "../../Spinner/Spinner";
 
 const UserProde = () => {
 	const fixture = useSelector((state) => state.data.fixtureProde);
@@ -38,7 +39,6 @@ const UserProde = () => {
 			);
 		}
 	}, [userData.prode, fixture]);
-	console.log(users.error);
 	useEffect(() => {
 		if (currentFixture?.length > 0) {
 			dispatch(getFixtureProde(2023, 128, currentFixture));
@@ -68,7 +68,6 @@ const UserProde = () => {
 			setShowAlertSumbit(true);
 		}
 	};
-	console.log(showAlertSumbit);
 	const showAlert = () => {
 		swal({
 			title: "Cambio Exitoso",

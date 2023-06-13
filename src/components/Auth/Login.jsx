@@ -9,18 +9,19 @@ const Login = () => {
 	const dispatch = useDispatch();
 	const [showAlertSumbit, setShowAlertSumbit] = useState(false);
 	const [msgSwap, setMsgSwap] = useState({});
-	const { users } = useSelector((state) => state);
-
+	const [showSpinner, setShowSpinner] = useState(false);
 	const navigate = useNavigate();
 	const auth = useSelector((state) => state.auth);
 
 	const handleSubmit = (user) => {
 		dispatch(signIn(user));
+		setShowSpinner(true);
 		setTimeout(() => {
 			setShowAlertSumbit(true);
+			setShowSpinner(false);
 		}, 1000);
 	};
-
+	console.log(auth);
 	useEffect(() => {
 		if (auth.error && auth.msg?.includes("wrong")) {
 			setMsgSwap({
@@ -50,8 +51,16 @@ const Login = () => {
 				icon: "warning",
 			});
 		}
+		if (auth.error && auth.msg?.includes("request-failed")) {
+			setMsgSwap({
+				title: "Error de Servidor",
+				text: "En este momento estamos teniendo inconveninetes con un servidor externo, por favor intentá en unos minutos",
+				icon: "warning",
+			});
+		}
 		if (auth.login) {
 			navigate("/");
+			setShowSpinner(false);
 		}
 	}, [auth]);
 	const showAlert = ({ title, text, icon }) => {
@@ -70,7 +79,11 @@ const Login = () => {
 
 	return (
 		<div>
-			<Form register={false} handleSubmit={handleSubmit} />
+			<Form
+				register={false}
+				handleSubmit={handleSubmit}
+				showSpinner={showSpinner}
+			/>
 			{showAlertSumbit && showAlert(msgSwap)}
 		</div>
 	);

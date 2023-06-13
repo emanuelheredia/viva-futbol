@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import "./form.css";
 import { useNavigate } from "react-router-dom";
+import { Spinner } from "../Spinner/Spinner";
+
 const initialState = {
 	email: "",
 	password: "",
 };
-const Form = ({ handleSubmit, register }) => {
-	const auth = useSelector((state) => state.auth);
+const Form = ({ handleSubmit, register, showSpinner }) => {
 	const [user, setUser] = useState(initialState);
 	const navigate = useNavigate();
 	const handleSubmitForm = (e) => {
@@ -74,7 +75,7 @@ const Form = ({ handleSubmit, register }) => {
 						Para loguearte click acá
 					</p>
 				)}
-				{auth.loading && <p>Procesando..</p>}
+				{showSpinner && <Spinner />}
 			</div>
 		</form>
 	);

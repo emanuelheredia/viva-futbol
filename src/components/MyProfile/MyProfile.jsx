@@ -3,18 +3,23 @@ import "./myProfile.css";
 import { useSelector } from "react-redux";
 import UserInfo from "./userInfo/UserInfo";
 import UserProde from "./userProde/UserProde";
-
+import { useDispatch } from "react-redux";
+import { getUserDB } from "../../redux/actions/user.actions";
 const MyProfile = () => {
 	const { auth } = useSelector((state) => state);
 	const { users } = useSelector((state) => state);
 	const [accountConfirm, setAccountConfirm] = useState(false);
-
+	const dispatch = useDispatch();
 	console.log(users);
 	useEffect(() => {
 		if (users.data && users.data.accountConfirm) {
 			setAccountConfirm(true);
 		}
 	}, [users.data]);
+	useEffect(() => {
+		dispatch(getUserDB(auth.data.userID));
+	}, []);
+
 	return (
 		<div style={{ marginTop: "5rem" }}>
 			{accountConfirm ? (
