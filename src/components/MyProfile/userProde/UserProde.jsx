@@ -14,7 +14,9 @@ import { Spinner } from "../../Spinner/Spinner";
 const UserProde = () => {
 	const fixture = useSelector((state) => state.data.fixtureProde);
 	const { userID } = useSelector((state) => state.auth.data);
-	const { currentFixture } = useSelector((state) => state.data);
+	const { currentFixture, previousCurrentFixture } = useSelector(
+		(state) => state.data,
+	);
 	const { data: userData } = useSelector((state) => state.users);
 	const { users } = useSelector((state) => state);
 	const [prode, setProde] = useState([]);
@@ -41,15 +43,32 @@ const UserProde = () => {
 	}, [userData.prode, fixture]);
 	useEffect(() => {
 		if (currentFixture?.length > 0) {
-			dispatch(getFixtureProde(2023, 128, currentFixture));
+			dispatch(
+				getFixtureProde(
+					2023,
+					128,
+					"1st Phase - 21" || currentFixture[0],
+				),
+			);
+		}
+	}, [currentFixture]);
+	useEffect(() => {
+		if (currentFixture?.length > 0) {
+			dispatch(
+				getFixtureProde(
+					2023,
+					128,
+					"1st Phase - 21" || currentFixture[0],
+				),
+			);
 		}
 	}, [currentFixture]);
 	useEffect(() => {
 		if (userData.prode && prodeDBFinished) {
-			console.log(prodeDBFinished);
 			setProde(userData.prode);
 		}
 	}, [userData.prode, prodeDBFinished]);
+	console.log(prodeDBFinished);
 	/* 	useEffect(() => {
 		const matchesNotStarted = fixture.map(
 			(el) => el.fixture.status.long === "Not Started",
@@ -80,7 +99,6 @@ const UserProde = () => {
 			}
 		});
 	};
-	console.log(users);
 	return (
 		<div>
 			<h2 className="userInfo-prode-title">Mi Pronóstico</h2>

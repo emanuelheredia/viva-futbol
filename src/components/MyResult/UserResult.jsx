@@ -19,6 +19,7 @@ const UserResult = () => {
 	const { currentFixture } = useSelector((state) => state.data);
 	const userData = useSelector((state) => state.users.data);
 	const [fechaFinalizada, setFechaFinalizada] = useState(true);
+	const [previousFixture, setPreviousFixture] = useState("");
 	const [resultadosFecha, setResultadosFecha] = useState([]);
 	const [userResults, setUserResults] = useState([]);
 	const [totalUSerResult, setTotalUSerResult] = useState(0);
@@ -35,10 +36,15 @@ const UserResult = () => {
 			setAccountConfirm(true);
 		}
 	}, [users.data]);
-	console.log(currentFixture);
 	useEffect(() => {
 		if (fixture.length === 0) {
-			dispatch(getFixtureProde(2023, 128, currentFixture[0]));
+			dispatch(
+				getFixtureProde(
+					2023,
+					128,
+					"1st Phase - 21" || currentFixture[0],
+				),
+			);
 		}
 	}, [currentFixture]);
 	useEffect(() => {

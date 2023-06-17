@@ -22,6 +22,7 @@ const initialState = {
 	fixtureProde: [],
 	teams: [],
 	currentFixture: "",
+	previousCurrentFixture: "",
 	msg: "",
 	loading: false,
 	error: false,
@@ -66,7 +67,8 @@ export default function dataReducer(state = initialState, action) {
 			return {
 				...state,
 				loading: false,
-				currentFixture: action.payload,
+				currentFixture: action.payload.current,
+				previousCurrentFixture: action.payload.previous,
 			};
 		case GET_ALL_COUNTRIES_ERROR:
 			return {

@@ -15,7 +15,9 @@ const Positions = () => {
 	const { userID } = useSelector((state) => state.auth.data);
 	const { allUsers } = useSelector((state) => state.users);
 	const fixture = useSelector((state) => state.data.fixtureProde);
-	const { currentFixture } = useSelector((state) => state.data);
+	const { currentFixture, previousCurrentFixture } = useSelector(
+		(state) => state.data,
+	);
 	const [fechaFinalizada, setFechaFinalizada] = useState(true);
 	const [resultadosFecha, setResultadosFecha] = useState([]);
 	const [tablaPosiciones, setTablaPosiciones] = useState([]);
@@ -39,7 +41,13 @@ const Positions = () => {
 	}, [allUsers]);
 	useEffect(() => {
 		if (fixture.length === 0) {
-			dispatch(getFixtureProde(2023, 128, "1st Phase - 19"));
+			dispatch(
+				getFixtureProde(
+					2023,
+					128,
+					"1st Phase - 21" || currentFixture[0],
+				),
+			);
 		}
 	}, [currentFixture]);
 	useEffect(() => {
@@ -62,9 +70,9 @@ const Positions = () => {
 			setResultadosFecha([]);
 		}
 	}, [fixture, fechaFinalizada]);
+	console.log(previousCurrentFixture);
 	useEffect(() => {
 		if (allUsers.length > 0 && fechaFinalizada) {
-			console.log(allUsers);
 			let allResultsUsers = [];
 			allUsers.map((user) => {
 				let { totalUserScore } = getUserScore(

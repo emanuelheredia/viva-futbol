@@ -173,7 +173,14 @@ export const getCurrentFixture = () => {
 					},
 				)
 				.then((res) => {
-					dispatch(getcurrentFixtureActionExito(res.response));
+					dispatch(
+						getcurrentFixtureActionExito({
+							current: "1st Phase - 21" || res.response,
+							previous: getPreviousNumberFixture(
+								"1st Phase - 21" || res.response,
+							),
+						}),
+					);
 				});
 		} catch (error) {
 			dispatch(
@@ -194,3 +201,10 @@ const getcurrentFixtureActionError = (msg) => ({
 	type: GET_CURRENT_FIXTURE_ERROR,
 	payload: msg,
 });
+const getPreviousNumberFixture = (fixture) => {
+	if (fixture.length === 1 || fixture.length === 14) {
+		let number = fixture.split("- ")[1];
+		return "1st Phase - " + (Number(number) - 1);
+	}
+	return "1st Phase -";
+};
