@@ -14,12 +14,16 @@ import {
 	GET_CURRENT_FIXTURE,
 	GET_CURRENT_FIXTURE_EXITO,
 	GET_CURRENT_FIXTURE_ERROR,
+	GET_PREVIOUS_FIXTURE_PRODE,
+	GET_PREVIOUS_FIXTURE_PRODE_EXITO,
+	GET_PREVIOUS_FIXTURE_PRODE_ERROR,
 } from "../types/index";
 
 const initialState = {
 	countries: [],
 	fixture: [],
 	fixtureProde: [],
+	fixturePreviousProde: [],
 	teams: [],
 	currentFixture: "",
 	previousCurrentFixture: "",
@@ -63,6 +67,12 @@ export default function dataReducer(state = initialState, action) {
 				loading: false,
 				fixtureProde: action.payload,
 			};
+		case GET_PREVIOUS_FIXTURE_PRODE_EXITO:
+			return {
+				...state,
+				loading: false,
+				fixturePreviousProde: action.payload,
+			};
 		case GET_CURRENT_FIXTURE_EXITO:
 			return {
 				...state,
@@ -98,6 +108,14 @@ export default function dataReducer(state = initialState, action) {
 				error: true,
 				msg: action.payload,
 			};
+		case GET_PREVIOUS_FIXTURE_PRODE_ERROR:
+			return {
+				...state,
+				loading: false,
+				error: true,
+				msg: action.payload,
+			};
+
 		case GET_CURRENT_FIXTURE_EXITO:
 			return {
 				...state,

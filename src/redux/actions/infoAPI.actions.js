@@ -14,6 +14,9 @@ import {
 	GET_CURRENT_FIXTURE,
 	GET_CURRENT_FIXTURE_EXITO,
 	GET_CURRENT_FIXTURE_ERROR,
+	GET_PREVIOUS_FIXTURE_PRODE,
+	GET_PREVIOUS_FIXTURE_PRODE_EXITO,
+	GET_PREVIOUS_FIXTURE_PRODE_ERROR,
 } from "../types";
 import { helpHttp } from "../../helpers/helpHttp";
 import config from "../../config";
@@ -116,7 +119,6 @@ export const getFixtureProde = (season, league, ronda) => {
 		}
 	};
 };
-
 const getFixture = () => ({ type: GET_FIXTURE_PRODE });
 const getFixtureExito = (data) => ({
 	type: GET_FIXTURE_PRODE_EXITO,
@@ -124,6 +126,53 @@ const getFixtureExito = (data) => ({
 });
 const getFixtureError = (msg) => ({
 	type: GET_FIXTURE_PRODE_ERROR,
+	payload: msg,
+});
+export const getPreviousFixtureProde = (season, league, ronda) => {
+	return async (dispatch) => {
+		dispatch(getPreviousFixture());
+		try {
+			helpHttp()
+				.get(
+					"https://" +
+						config.HOST1 +
+						"fixtures?&season=" +
+						season +
+						"&league=" +
+						league +
+						"&round=" +
+						ronda +
+						"&timezone=America/Argentina/Cordoba",
+					{
+						headers: {
+							"x-rapidapi-host": config.HOST1,
+							"x-rapidapi-key": config.KEY1,
+						},
+					},
+				)
+				.then((res) => {
+					const respuesta = res.response.sort(
+						(x, y) => x.fixture.timestamp - y.fixture.timestamp,
+					);
+					dispatch(getPreviousFixtureExito(respuesta));
+				});
+		} catch (error) {
+			dispatch(
+				getPreviousFixtureError(
+					"Error en la aextracción fixture prode",
+				),
+			);
+		}
+	};
+};
+
+const getPreviousFixture = () => ({ type: GET_PREVIOUS_FIXTURE_PRODE });
+const getPreviousFixtureExito = (data) => ({
+	type: GET_PREVIOUS_FIXTURE_PRODE_EXITO,
+	payload: data,
+});
+const getPreviousFixtureError = (msg) => ({
+	type: GET_PREVIOUS_FIXTURE_PRODE_ERROR,
 	payload: msg,
 });
 

@@ -10,7 +10,6 @@ const MyProfile = () => {
 	const { users } = useSelector((state) => state);
 	const [accountConfirm, setAccountConfirm] = useState(false);
 	const dispatch = useDispatch();
-	console.log(users);
 	useEffect(() => {
 		if (users.data && users.data.accountConfirm) {
 			setAccountConfirm(true);

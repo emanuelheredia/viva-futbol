@@ -4,15 +4,18 @@ import { useDispatch, useSelector } from "react-redux";
 import {
 	getCurrentFixture,
 	getFixtureProde,
+	getPreviousFixtureProde,
 } from "../../../redux/actions/infoAPI.actions";
 import CardEnfrentamientosProde from "./CardEnfrentamientosProde";
 import { updateUserProdeDB } from "../../../redux/actions/user.actions";
 import UserCountDown from "./UserCountDown";
 import swal from "sweetalert";
-import { Spinner } from "../../Spinner/Spinner";
 
 const UserProde = () => {
 	const fixture = useSelector((state) => state.data.fixtureProde);
+	const previousFixture = useSelector(
+		(state) => state.data.fixturePreviousProde,
+	);
 	const { userID } = useSelector((state) => state.auth.data);
 	const { currentFixture, previousCurrentFixture } = useSelector(
 		(state) => state.data,
@@ -26,49 +29,33 @@ const UserProde = () => {
 	const dispatch = useDispatch();
 
 	const firstMatchDate = fixture[0]?.fixture.date;
-
 	useEffect(() => {
 		dispatch(getCurrentFixture());
 	}, [userID]);
 	useEffect(() => {
 		if (userData.prode && fixture) {
-			setProdeDBFinished(
-				userData.prode
-					.map((elem) =>
-						fixture.map((el) => el.fixture.id).includes(elem.id),
-					)
-					.includes(true),
+			let fixturesIDCurrentAndPrev = fixture
+				.map((el) => el.fixture.id)
+				.concat(previousFixture.map((el) => el.fixture.id));
+			setProde(
+				userData.prode.filter((el) =>
+					fixturesIDCurrentAndPrev.includes(el.id),
+				),
 			);
 		}
 	}, [userData.prode, fixture]);
 	useEffect(() => {
 		if (currentFixture?.length > 0) {
-			dispatch(
-				getFixtureProde(
-					2023,
-					128,
-					"1st Phase - 21" || currentFixture[0],
-				),
-			);
+			dispatch(getFixtureProde(2023, 128, currentFixture));
 		}
 	}, [currentFixture]);
 	useEffect(() => {
-		if (currentFixture?.length > 0) {
+		if (previousCurrentFixture?.length > 0) {
 			dispatch(
-				getFixtureProde(
-					2023,
-					128,
-					"1st Phase - 21" || currentFixture[0],
-				),
+				getPreviousFixtureProde(2023, 128, previousCurrentFixture),
 			);
 		}
-	}, [currentFixture]);
-	useEffect(() => {
-		if (userData.prode && prodeDBFinished) {
-			setProde(userData.prode);
-		}
-	}, [userData.prode, prodeDBFinished]);
-	console.log(prodeDBFinished);
+	}, [previousCurrentFixture]);
 	/* 	useEffect(() => {
 		const matchesNotStarted = fixture.map(
 			(el) => el.fixture.status.long === "Not Started",

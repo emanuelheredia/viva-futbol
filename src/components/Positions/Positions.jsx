@@ -70,7 +70,6 @@ const Positions = () => {
 			setResultadosFecha([]);
 		}
 	}, [fixture, fechaFinalizada]);
-	console.log(previousCurrentFixture);
 	useEffect(() => {
 		if (allUsers.length > 0 && fechaFinalizada) {
 			let allResultsUsers = [];

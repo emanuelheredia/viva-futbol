@@ -21,7 +21,6 @@ const Login = () => {
 			setShowSpinner(false);
 		}, 1000);
 	};
-	console.log(auth);
 	useEffect(() => {
 		if (auth.error && auth.msg?.includes("wrong")) {
 			setMsgSwap({
