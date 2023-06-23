@@ -7,10 +7,7 @@ import {
 	getPreviousFixtureProde,
 } from "../../redux/actions/infoAPI.actions";
 import { getUserDB } from "../../redux/actions/user.actions";
-import {
-	getResultadosFromFixture,
-	getUserScore,
-} from "../../helpers/helpFunctions";
+import { getResultadosFromFixture } from "../../helpers/helpFunctions";
 import "./userResult.css";
 import CardUserResults from "./CardUserResults";
 
@@ -50,7 +47,7 @@ const UserResult = () => {
 		}
 	}, [currentFixture]);
 	useEffect(() => {
-		if (previousCurrentFixture?.length > 0) {
+		if (previousCurrentFixture?.length === 0) {
 			dispatch(
 				getPreviousFixtureProde(2023, 128, previousCurrentFixture),
 			);

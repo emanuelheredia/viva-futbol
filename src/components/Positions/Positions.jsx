@@ -4,6 +4,7 @@ import { getAllUsersDB } from "../../redux/actions/user.actions";
 import {
 	getFixtureProde,
 	getCurrentFixture,
+	getPreviousFixtureProde,
 } from "../../redux/actions/infoAPI.actions";
 import {
 	getResultadosFromFixture,
@@ -15,14 +16,21 @@ const Positions = () => {
 	const { userID } = useSelector((state) => state.auth.data);
 	const { allUsers } = useSelector((state) => state.users);
 	const fixture = useSelector((state) => state.data.fixtureProde);
+	const previousFixture = useSelector(
+		(state) => state.data.fixturePreviousProde,
+	);
 	const { currentFixture, previousCurrentFixture } = useSelector(
 		(state) => state.data,
 	);
 	const [fechaFinalizada, setFechaFinalizada] = useState(true);
-	const [resultadosFecha, setResultadosFecha] = useState([]);
+	const [resultadosFechaActual, setResultadosFechaActual] = useState([]);
+	const [resultadosFechaAnterior, setResultadosFechaAnterior] = useState([]);
+
 	const [tablaPosiciones, setTablaPosiciones] = useState([]);
 	const { users } = useSelector((state) => state);
 	const [accountConfirm, setAccountConfirm] = useState(false);
+	const [showResultPreviousPositions, setshowResultPreviousPositions] =
+		useState(false);
 
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -41,15 +49,16 @@ const Positions = () => {
 	}, [allUsers]);
 	useEffect(() => {
 		if (fixture.length === 0) {
-			dispatch(
-				getFixtureProde(
-					2023,
-					128,
-					"1st Phase - 21" || currentFixture[0],
-				),
-			);
+			dispatch(getFixtureProde(2023, 128, currentFixture));
 		}
 	}, [currentFixture]);
+	useEffect(() => {
+		if (previousCurrentFixture.length === 0) {
+			dispatch(
+				getPreviousFixtureProde(2023, 128, previousCurrentFixture),
+			);
+		}
+	}, [previousCurrentFixture]);
 	useEffect(() => {
 		const matchesFisihed = fixture.map(
 			(el) =>
@@ -65,18 +74,33 @@ const Positions = () => {
 	useEffect(() => {
 		if (fixture.length !== 0 && fechaFinalizada) {
 			const resultadosFormateados = getResultadosFromFixture(fixture);
-			setResultadosFecha(resultadosFormateados);
+			setResultadosFechaActual(resultadosFormateados);
 		} else {
-			setResultadosFecha([]);
+			setResultadosFechaActual([]);
 		}
 	}, [fixture, fechaFinalizada]);
 	useEffect(() => {
-		if (allUsers.length > 0 && fechaFinalizada) {
+		if (showResultPreviousPositions && previousFixture.length !== 0) {
+			const resultadosFormateados =
+				getResultadosFromFixture(previousFixture);
+			setResultadosFechaAnterior(resultadosFormateados);
+		} else {
+			setResultadosFechaAnterior([]);
+		}
+	}, [previousFixture, showResultPreviousPositions]);
+
+	useEffect(() => {
+		if (
+			allUsers.length > 0 &&
+			(fechaFinalizada || showResultPreviousPositions)
+		) {
 			let allResultsUsers = [];
 			allUsers.map((user) => {
 				let { totalUserScore } = getUserScore(
 					user.user.prode,
-					resultadosFecha,
+					fechaFinalizada
+						? resultadosFechaActual
+						: resultadosFechaAnterior,
 				);
 
 				allResultsUsers.push({
@@ -87,7 +111,12 @@ const Positions = () => {
 			});
 			setTablaPosiciones(orderTablePositions(allResultsUsers));
 		}
-	}, [allUsers, resultadosFecha]);
+	}, [
+		allUsers,
+		resultadosFechaActual,
+		resultadosFechaAnterior,
+		showResultPreviousPositions,
+	]);
 
 	const orderTablePositions = (table) => {
 		return table.sort((x, y) => x.score + y.score);
@@ -104,13 +133,21 @@ const Positions = () => {
 			}}
 		>
 			{" "}
-			{!fechaFinalizada && (
-				<h2 className="title-fixture-in-procces">
-					Aun la fecha no finalizó, aguardá su conclusión para ver los
-					resultados . . .
-				</h2>
+			{!fechaFinalizada && !showResultPreviousPositions && (
+				<div className="userResult-containerFixtureInProgress">
+					<h2 className="title-fixture-in-procces">
+						Aun la fecha no finalizó, aguardá su conclusión para ver
+						los resultados . . .
+					</h2>
+					<button
+						onClick={() => setshowResultPreviousPositions(true)}
+						className="userResults-btnSeePreviousResults"
+					>
+						Ver Posiciones Fecha pasada
+					</button>
+				</div>
 			)}
-			{fechaFinalizada && (
+			{(fechaFinalizada || showResultPreviousPositions) && (
 				<div className="positions-container-table">
 					<div className="positions-container-headerTable">
 						<h4>Posición</h4>
