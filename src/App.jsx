@@ -8,6 +8,7 @@ import MyProfile from "./components/MyProfile/MyProfile";
 import UserResult from "./components/MyResult/UserResult";
 import Positions from "./components/Positions/Positions";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import Administrator from "./components/Administrator/Administrator";
 function App() {
 	return (
 		<>
@@ -34,6 +35,14 @@ function App() {
 					element={
 						<ProtectedRoute>
 							<UserResult />
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path="/admin"
+					element={
+						<ProtectedRoute>
+							<Administrator />
 						</ProtectedRoute>
 					}
 				/>
