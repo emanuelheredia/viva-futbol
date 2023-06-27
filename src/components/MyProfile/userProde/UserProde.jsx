@@ -29,6 +29,7 @@ const UserProde = () => {
 	const dispatch = useDispatch();
 
 	const firstMatchDate = fixture[0]?.fixture.date;
+	const lastMatchDate = fixture[fixture.length - 1]?.fixture.date;
 	useEffect(() => {
 		dispatch(getCurrentFixture());
 	}, [userID]);
@@ -90,7 +91,10 @@ const UserProde = () => {
 		<div>
 			<h2 className="userInfo-prode-title">Mi Pronóstico</h2>
 			{firstMatchDate && (
-				<UserCountDown firstMatchDate={firstMatchDate} />
+				<UserCountDown
+					firstMatchDate={firstMatchDate}
+					lastMatchDate={lastMatchDate}
+				/>
 			)}
 			<div className="container__allMatches">
 				{!fixtureNotStarted ? (
