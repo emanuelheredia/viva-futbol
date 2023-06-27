@@ -8,7 +8,7 @@ const initialState = {
 	email: "",
 	password: "",
 };
-const Form = ({ handleSubmit, register, showSpinner }) => {
+const Form = ({ handleSubmit, register, showSpinner, setResetPass }) => {
 	const [user, setUser] = useState(initialState);
 	const navigate = useNavigate();
 	const handleSubmitForm = (e) => {
@@ -28,6 +28,9 @@ const Form = ({ handleSubmit, register, showSpinner }) => {
 	};
 	const goToLogin = () => {
 		navigate("/login");
+	};
+	const handleForgetMyPass = () => {
+		setResetPass(true);
 	};
 	return (
 		<form className="form" onSubmit={handleSubmitForm}>
@@ -66,9 +69,20 @@ const Form = ({ handleSubmit, register, showSpinner }) => {
 					{register ? "Registrar" : "Loguear"}
 				</button>
 				{!register && (
-					<p onClick={goToRegistrer} className="form-linkToRegistrer">
-						Si aún no estás registrado click acá
-					</p>
+					<div className="form-Container-OlvidePass_GoToRegister">
+						<p
+							onClick={goToRegistrer}
+							className="form-linkToRegistrer"
+						>
+							Si aún no estás registrado click acá
+						</p>
+						<p
+							className="form-linkToRegistrer"
+							onClick={handleForgetMyPass}
+						>
+							Olvidé mi contraseña
+						</p>
+					</div>
 				)}
 				{register && (
 					<p onClick={goToLogin} className="form-linkToRegistrer">

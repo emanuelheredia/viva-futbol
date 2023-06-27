@@ -27,7 +27,6 @@ const UserProde = () => {
 	const [prodeDBFinished, setProdeDBFinished] = useState(false);
 	const [showAlertSumbit, setShowAlertSumbit] = useState(false);
 	const dispatch = useDispatch();
-
 	const firstMatchDate = fixture[0]?.fixture.date;
 	const lastMatchDate = fixture[fixture.length - 1]?.fixture.date;
 	useEffect(() => {
@@ -46,18 +45,18 @@ const UserProde = () => {
 		}
 	}, [userData.prode, fixture]);
 	useEffect(() => {
-		if (currentFixture?.length > 0) {
+		if (fixture.length == 0 && currentFixture?.length > 0) {
 			dispatch(getFixtureProde(2023, 128, currentFixture));
 		}
 	}, [currentFixture]);
 	useEffect(() => {
-		if (previousCurrentFixture?.length > 0) {
+		if (previousFixture.length == 0 && previousCurrentFixture?.length > 0) {
 			dispatch(
 				getPreviousFixtureProde(2023, 128, previousCurrentFixture),
 			);
 		}
 	}, [previousCurrentFixture]);
-	/* 	useEffect(() => {
+	useEffect(() => {
 		const matchesNotStarted = fixture.map(
 			(el) => el.fixture.status.long === "Not Started",
 		);
@@ -67,7 +66,7 @@ const UserProde = () => {
 			setFixtureNotStarted(true);
 		}
 	}, [fixture]);
- */ const handleSubmit = () => {
+	const handleSubmit = () => {
 		if (prode.length !== 0) {
 			dispatch(updateUserProdeDB(userID, { prode: prode }));
 		}

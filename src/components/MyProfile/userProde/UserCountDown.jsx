@@ -3,7 +3,6 @@ import { getRemainTime } from "../../../helpers/countdownUtilitie";
 import "./userCountDown.css";
 
 const UserCountDown = ({ firstMatchDate, lastMatchDate }) => {
-	console.log(lastMatchDate);
 	const [remainTime, setRemainTime] = useState("");
 	const [fixtureFinish, setFixtureFinish] = useState(false);
 	useEffect(() => {
@@ -29,7 +28,6 @@ const UserCountDown = ({ firstMatchDate, lastMatchDate }) => {
 	useEffect(() => {
 		const timeToFinishFixture = getRemainTime(lastMatchDate);
 		if (timeToFinishFixture.remainTime < 0) {
-			console.log("sii");
 			setFixtureFinish(true);
 		}
 	}, [lastMatchDate]);
@@ -38,7 +36,7 @@ const UserCountDown = ({ firstMatchDate, lastMatchDate }) => {
 		<div className="userCountdown-container">
 			<h3 className="userInfo-prode-title">
 				{fixtureFinish
-					? "La Fecha ya finalizó, a la brevedad se cargará el prode correspondiente a la siguiente fecha"
+					? "La última fecha ya finalizó, a la brevedad se cargará el prode correspondiente a la siguiente fecha"
 					: remainTime !== "La fecha ya Inició" &&
 					  "Inicio de la fecha en "}
 				{!fixtureFinish && remainTime}

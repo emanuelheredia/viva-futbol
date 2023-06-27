@@ -10,6 +10,7 @@ const Login = () => {
 	const [showAlertSumbit, setShowAlertSumbit] = useState(false);
 	const [msgSwap, setMsgSwap] = useState({});
 	const [showSpinner, setShowSpinner] = useState(false);
+	const [resetPass, setResetPass] = useState(false);
 	const navigate = useNavigate();
 	const auth = useSelector((state) => state.auth);
 
@@ -57,11 +58,19 @@ const Login = () => {
 				icon: "warning",
 			});
 		}
+		if (resetPass) {
+			setShowAlertSumbit(true);
+			setMsgSwap({
+				title: "Solicitud",
+				text: "Por favor, ponte en contacto con el administrador para reestablecer tu contraseña ",
+				icon: "warning",
+			});
+		}
 		if (auth.login) {
 			navigate("/");
 			setShowSpinner(false);
 		}
-	}, [auth]);
+	}, [auth, resetPass]);
 	const showAlert = ({ title, text, icon }) => {
 		swal({
 			title: title,
@@ -72,6 +81,7 @@ const Login = () => {
 			if (respuesta) {
 				setShowAlertSumbit(false);
 				setMsgSwap({});
+				setResetPass(false);
 			}
 		});
 	};
@@ -82,6 +92,7 @@ const Login = () => {
 				register={false}
 				handleSubmit={handleSubmit}
 				showSpinner={showSpinner}
+				setResetPass={setResetPass}
 			/>
 			{showAlertSumbit && showAlert(msgSwap)}
 		</div>

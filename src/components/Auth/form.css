@@ -76,6 +76,17 @@
 .form-linkToRegistrer:hover{
     font-weight: bolder;
 }
+.form-Container-OlvidePass_GoToRegister{
+    display: flex;
+    gap: .8rem;
+    justify-content: center;
+}
+.form-Container-OlvidePass_GoToRegister>p{
+    width: 45%;
+    text-align: center;
+    cursor: pointer;
+}
+
 @media (min-width:780px){
 .form-container{
     width: 450px;

@@ -21,9 +21,11 @@ const MatchsDay = () => {
 	const [matchs, setMatchs] = useState(null);
 	const [loading, setLoading] = useState(false);
 	useEffect(() => {
-		dispatch(getMatchsDays());
-	}, []);
-
+		if (!data.fixture) {
+			console.log("entre");
+			dispatch(getMatchsDays());
+		}
+	}, [data.fixture]);
 	useEffect(() => {
 		if (data.fixture?.length > 0) {
 			const filterMatchs = data.fixture.filter((el) =>
