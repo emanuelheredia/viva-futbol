@@ -56,7 +56,8 @@ const UserProde = () => {
 			);
 		}
 	}, [previousCurrentFixture]);
-	useEffect(() => {
+	console.log(currentFixture);
+	/* 	useEffect(() => {
 		const matchesNotStarted = fixture.map(
 			(el) => el.fixture.status.long === "Not Started",
 		);
@@ -66,7 +67,7 @@ const UserProde = () => {
 			setFixtureNotStarted(true);
 		}
 	}, [fixture]);
-	const handleSubmit = () => {
+ */ const handleSubmit = () => {
 		if (prode.length !== 0) {
 			dispatch(updateUserProdeDB(userID, { prode: prode }));
 		}

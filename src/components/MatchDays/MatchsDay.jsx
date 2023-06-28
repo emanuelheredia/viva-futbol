@@ -21,7 +21,7 @@ const MatchsDay = () => {
 	const [matchs, setMatchs] = useState(null);
 	const [loading, setLoading] = useState(false);
 	useEffect(() => {
-		if (!data.fixture) {
+		if (data.fixture.length === 0) {
 			console.log("entre");
 			dispatch(getMatchsDays());
 		}
@@ -37,7 +37,6 @@ const MatchsDay = () => {
 	useEffect(() => {
 		setLoading(data.loading);
 	}, [data.loading]);
-
 	return (
 		<>
 			<div className="matchs_container">

@@ -67,10 +67,12 @@ const Login = () => {
 			});
 		}
 		if (auth.login) {
+			setShowAlertSumbit(false);
 			navigate("/");
 			setShowSpinner(false);
 		}
 	}, [auth, resetPass]);
+	console.log(auth);
 	const showAlert = ({ title, text, icon }) => {
 		swal({
 			title: title,
